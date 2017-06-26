@@ -81,14 +81,14 @@ HTTP方法的幂等性是指一次和多次请求某一个资源应该具有同�
 ### new Thread的弊端
 性能差，功能少，缺少统一管理，容易混乱。
 ### 通过Executors提供四种线程池
-```newCachedThreadPool```
-创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。
-```newFixedThreadPool```
-创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。
-```newScheduledThreadPool```
-创建一个定长线程池，支持定时及周期性任务执行。
-```newSingleThreadExecutor```
-创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。
+```newCachedThreadPool```  
+创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。  
+```newFixedThreadPool```  
+创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。  
+```newScheduledThreadPool```  
+创建一个定长线程池，支持定时及周期性任务执行。  
+```newSingleThreadExecutor```  
+创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。  
 
 # 二叉树层次遍历  
 # future.get  
