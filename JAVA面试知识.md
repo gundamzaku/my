@@ -1,8 +1,8 @@
 # 双亲委派  
 类加载器分为三种：  
-*1.启动类加载器(Bootstrap ClassLoader)*  
-*2.扩展类加载器(Extension ClassLoader)*  
-*3.应用程序类加载器(Application ClassLoader)*  
+<b>1.启动类加载器(Bootstrap ClassLoader)</br>  
+<b>2.扩展类加载器(Extension ClassLoader)</br>  
+<b>3.应用程序类加载器(Application ClassLoader)</br>  
 双亲委派模型的式作过程是：如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完全这个加载请求时，子加载器才会尝试自己去加载。
 
 # 设计模式  
@@ -111,7 +111,7 @@ ASM从类文件中读入信息后，能够改变类行为，分析类信息，�
 ```newSingleThreadExecutor```  
 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。  
 
-<b>线程池作用就是限制系统中执行线程的数量。</b>
+<b>线程池作用就是限制系统中执行线程的数量。</b>  
 [参考文章](http://blog.csdn.net/u011974987/article/details/51027795)
 # 二叉树层次遍历  
 # future.get  
