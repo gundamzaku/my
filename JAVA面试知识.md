@@ -1,5 +1,5 @@
 # 双亲委派  
-类加载器分为三种：
+类加载器分为三种：  
 1.启动类加载器(Bootstrap ClassLoader)  
 2.扩展类加载器(Extension ClassLoader)  
 3.应用程序类加载器(Application ClassLoader)  
