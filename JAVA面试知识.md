@@ -22,12 +22,17 @@ public class Singleton{
     }        
 } 
 JVM内部的机制能够保证当一个类被加载的时候，这个类的加载过程是线程互斥的。  
-这样当我们第一次调用getInstance的时候，JVM能够帮我们保证instance只被创建一次，并且会保证把赋值给instance的内存初始化完毕。  
+这样第一次调用getInstance的时候，JVM能够保证instance只被创建一次，并且会保证把赋值给instance的内存初始化完毕。  
 此外该方法也只会在第一次调用的时候使用互斥机制。  
 最后instance是在第一次加载SingletonContainer类时被创建的。  
 而SingletonContainer类则在调用getInstance方法的时候才会被加载，因此也实现了惰性加载。
 ```
 # 幂等请求  
+幂等性(Idempotence)
+HTTP方法的幂等性是指一次和多次请求某一个资源应该具有同样的副作用。  
+幂等性属于语义范畴，正如编译器只能帮助检查语法错误一样，HTTP规范也没有办法通过消息格式等语法手段来定义它。  
+但实际上，幂等性是分布式系统设计中十分重要的概念，而HTTP的分布式本质也决定了它在HTTP中具有重要地位。
+
 # zk,dubbo实现原理  
 # 动态代理两种方式和区别  
 # 线程池四种区别  
