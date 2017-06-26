@@ -95,7 +95,33 @@ HTTP方法的幂等性是指一次和多次请求某一个资源应该具有同�
 参数调控堆、栈的大小（这个后面还是要好好研究一下）
 
 # 可重入锁、读写锁概念  
-# 类的加载机制  
-Class文件由类装载器装载后，在JVM中将形成一份描述Class结构的元信息对象，通过该元信息对象可以获知Class的结构信息：如构造函数，属性和方法等，Java允许用户借由这个Class相关的元信息对象间接调用Class对象的功能。  
+
+### 可重入锁
+也叫做递归锁，指的是同一线程 外层函数获得锁之后 ，内层递归函数仍然有获取该锁的代码，但不受影响。  
+在JAVA环境下 ```ReentrantLock``` 和```synchronized``` 都是 可重入锁  
+举个简单的例子，当一个线程执行到某个synchronized方法时，比如说method1，而在method1中会调用另外一个synchronized方法method2，  
+此时线程不必重新去申请锁，而是可以直接执行方法method2。
+```Java
+class MyClass {
+    public synchronized void method1() {
+        method2();
+    }
+     
+    public synchronized void method2() {
+         
+    }
+}
+```
+假如某一时刻，线程A执行到了method1，此时线程A获取了这个对象的锁，  
+而由于method2也是synchronized方法，假如synchronized不具备可重入性，此时线程A需要重新申请锁。
+
+### 读写锁
+读写锁将对一个资源（比如文件）的访问分成了2个锁，一个读锁和一个写锁。  
+正因为有了读写锁，才使得多个线程之间的读操作不会发生冲突。  
+ReadWriteLock就是读写锁，它是一个接口，ReentrantReadWriteLock实现了这个接口。  
+可以通过readLock()获取读锁，通过writeLock()获取写锁。
+  
+# 类的加载机制  
+Class文件由类装载器装载后，在JVM中将形成一份描述Class结构的元信息对象，通过该元信息对象可以获知Class的结构信息：如构造函数，属性和方法等，Java允许用户借由这个Class相关的元信息对象间接调用Class对象的功能。  
 
 虚拟机把描述类的数据从class文件加载到内存，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。
