@@ -1,6 +1,28 @@
 # 双亲委派  
 # 设计模式  
 # SSH实现原理、懒加载  
+在开发中，如果某个实例的创建需要消耗很多系统资源，那么我们通常会使用惰性加载机制，也就是说只有当使用到这个实例的时候才会创建这个实例，这个好处在单例模式中得到了广泛应用。这个机制在single-threaded环境下的实现非常简单，然而在multi-threaded环境下却存在隐患。  
+```Java
+public static synchronized Singleton getInstance(){        
+    if (instance == null)        
+    instance = new Singleton();         
+    return instance;         
+}多线程下面的单例模式，加synchronized来控制，但是影响性能
+```
+```Java
+public class Singleton{        
+    private Singleton(){        
+        …        
+    }        
+    private static class SingletonContainer{        
+        private static Singleton instance = new Singleton();        
+    }        
+    public static Singleton getInstance(){        
+        return SingletonContainer.instance;        
+    }        
+} 
+JVM内部的机制能够保证当一个类被加载的时候，这个类的加载过程是线程互斥的。这样当我们第一次调用getInstance的时候，JVM能够帮我们保证instance只被创建一次，并且会保证把赋值给instance的内存初始化完毕。此外该方法也只会在第一次调用的时候使用互斥机制。最后instance是在第一次加载SingletonContainer类时被创建的，而SingletonContainer类则在调用getInstance方法的时候才会被加载，因此也实现了惰性加载。
+```
 # 幂等请求  
 # zk,dubbo实现原理  
 # 动态代理两种方式和区别  
