@@ -1,8 +1,8 @@
 # 双亲委派  
 类加载器分为三种：  
-<b>1.启动类加载器(Bootstrap ClassLoader)</br>  
-<b>2.扩展类加载器(Extension ClassLoader)</br>  
-<b>3.应用程序类加载器(Application ClassLoader)</br>  
+<b>1.启动类加载器(Bootstrap ClassLoader)</b>  
+<b>2.扩展类加载器(Extension ClassLoader)</b>  
+<b>3.应用程序类加载器(Application ClassLoader)</b>  
 双亲委派模型的式作过程是：如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完全这个加载请求时，子加载器才会尝试自己去加载。
 
 # 设计模式  
