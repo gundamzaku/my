@@ -90,11 +90,40 @@ HTTP方法的幂等性是指一次和多次请求某一个资源应该具有同�
 ```newSingleThreadExecutor```  
 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。  
 
+<b>线程池作用就是限制系统中执行线程的数量。</b>
 # 二叉树层次遍历  
 # future.get  
-# 微服务理解  
-简单地说，Microservice架构模式就是将整个Web应用组织为一系列小的Web服务。  
-这些小的Web服务可以独立地编译及部署，并通过各自暴露的API接口相互通讯。  
+Future模式可以这样来描述：我有一个任务，提交给了Future，Future替我完成这个任务。  
+期间我自己可以去做任何想做的事情。一段时间之后，我就便可以从Future那儿取出结果。  
+就相当于下了一张订货单，一段时间后可以拿着提订单来提货，这期间可以干别的任何事情。  
+其中Future 接口就是订货单，真正处理订单的是Executor类，它根据Future接口的要求来生产产品。
+```java
+ExecutorService executor = Executors.newSingleThreadExecutor();
+FutureTask<String> future =
+        new FutureTask<String>(new Callable<String>() {//使用Callable接口作为构造参数
+            public String call() {
+                return "hello world";
+                //真正的任务在这里执行，这里的返回值类型为String，可以为任意类型
+            }});
+executor.execute(future);
+String result = "";
+//在这里可以做别的任何事情
+try {
+    result = future.get(5000, TimeUnit.MILLISECONDS); //取得结果，同时设置超时执行时间为5秒。同样可以用future.get()，不设置执行超时时间取得结果
+} catch (InterruptedException e) {
+    future.cancel(true);
+} catch (ExecutionException e) {
+    future.cancel(true); 
+} catch (TimeoutException e) {
+    future.cancel(true);
+} finally {
+    executor.shutdown();
+}
+System.out.println(result);
+```
+# 微服务理解  
+简单地说，Microservice架构模式就是将整个Web应用组织为一系列小的Web服务。  
+这些小的Web服务可以独立地编译及部署，并通过各自暴露的API接口相互通讯。  
 它们彼此相互协作，作为一个整体为用户提供功能，却可以独立地进行扩容。
 
 # Mysql索引：聚族索引、非聚族索引  
