@@ -14,17 +14,17 @@ docker rm 9e643d5cb23d
 docker start 9e643d5cb23d
 
 #### 启动的几个参数  
-`带端口`
+`带端口`  
 docker run -d -i -t --privileged=true -p 80:80 web  
-`带端口，这是数据库的`
+`带端口，这是数据库的`  
 docker run -d -i -t --privileged=true -p 3306:3306 database  
-`带名字`
+`带名字`  
 docker run -d -i -t --name=mysql -P  database  ·
-`名字&映射&端口`
+`名字&映射&端口`  
 docker run -d -i -t --name=liwugame -P --link=mysql:db -p 8080:8080  php56  
-`映射到另外一台主机`
+`映射到另外一台主机`  
 docker run -d -i -t --name=web -P --link=mysql:db -p 80:80  web  
-`带端口`
+`带端口`  
 docker run -d -i -t -p8080:8080 centos  
 
 #### 停止  
