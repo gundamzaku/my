@@ -6,12 +6,10 @@
 http://maven.apache.org/download.cgi
 在windows的环境变量中配置
 
-在checkout出来的dubbox目录执行mvn install -Dmaven.test.skip=true来尝试编译一下dubbo（并将dubbo的jar安装到本地maven库）
+mvn install -Dmaven.test.skip=true来尝试编译一下项目（并将jar安装到本地maven库）
 似乎不用这么复杂，直接去MAVEN上下载即可？
 
 ```
 服务提供者\服务消费者
 ```
 ## 服务提供者
-
-## 基于Zookeeper的注册中心
