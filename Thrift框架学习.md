@@ -11,7 +11,8 @@ mvn install -Dmaven.test.skip=true来尝试编译一下项目（并将jar安装�
 
 yum install automake libtool flex bison pkgconfig gcc-c++ boost-devel libevent-devel zlib-devel python-devel ruby-devel  
 yum -y install openssl openssl-devel
-./configure --without-php --without-perl --without-ruby --without-haskell --without-go --without-d --without-csharp --without-erlang --without-c_glib
+./configure --without-php --without-perl --without-ruby --without-haskell --without-go --without-d --without-csharp --without-erlang --without-c_glib CXXFLAGS='-g -O2'
+
 ```
 服务提供者\服务消费者
 ```
