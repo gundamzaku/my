@@ -1,0 +1,2 @@
+### yum报错
+/etc/yum.conf 文件中的 plugins 设为 0
