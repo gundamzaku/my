@@ -2,12 +2,44 @@
 ## transient关键字是什么意思
 java语言的关键字，变量修饰符，如果用transient声明一个实例变量，当对象存储时，它的值不需要维持。换句话来说就是，用transient关键字标记的成员变量不参与序列化过程。
 ```JAVA
-class Test {
-  transient int a; // 不会被持久化
-  int b; // 持久化
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name ;
+    private transient String pwd ;
+    public UserInfo(String name,String pwd){
+        this.name =name;
+        this.pwd =pwd;
+    }
+    public String toString(){
+        return "name=" +name +",psw=" +pwd ;
+    }
 }
 ```
-当类Test的实例对象被序列化（比如将Test类的实例对象 t 写入硬盘的文本文件t.txt中），变量 a 的内容不会被保存，变量 b 的内容则会被保存。
+这是一个非常简单明了的例子。首先创造一个类，继承了Ｓerializable的接口。
+其中的pwd补标记成transient。
+```Java
+public static void main(String[] args) {
+    UserInfo userInfo = new UserInfo("张三" , "123456" );
+    System. out.println(userInfo);
+    try {
+        // 序列化，被设置为transient的属性没有被序列化
+        ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream("UserInfo.out"));
+        o.writeObject(userInfo);
+        o.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    try {
+        // 重新读取内容，这个时候被标记成transient的变量并不显示，已经没有被序列化进来。
+        ObjectInputStream in = new ObjectInputStream( new FileInputStream("UserInfo.out"));
+        UserInfo readUserInfo = (UserInfo) in.readObject();
+        // 读取后psw的内容为null
+        System. out.println(readUserInfo.toString());
+    } catch (Exception e) {
+        e.printStackTrace();   
+    }
+}
+```
 
 ## 下段代码会发生什么
 ```Java
