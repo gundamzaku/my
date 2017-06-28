@@ -35,10 +35,20 @@ http://thrift.apache.org/tutorial/java
 
 执行SharedServer，编译后报错`Could not load file: ../../lib/java/test/.keystore`
 
-需要用到keytool工具来生成密钥
-<b>私钥</b>
-`keytool -genkeypair -alias certificatekey -keyalg RSA -validity 36500 -keystore .keystore`
+需要用到keytool工具来生成密钥  
+<b>私钥</b>  
+`keytool -genkeypair -alias certificatekey -keyalg RSA -validity 36500 -keystore .keystore`  
 
-<b>公钥</b>
-`keytool -export -alias certificatekey -keystore .keystore -rfc -file server.cer`
+<b>公钥</b>  
+`keytool -export -alias certificatekey -keystore .keystore -rfc -file server.cer`  
 
+将上面生成的私钥.keystore和.truststore拷贝到项目中  
+
+然后分别在Client代码和Server代码中进行设置  
+`params.setTrustStore("./src/main/java/client/.truststore", "pass", "SunX509", "JKS");`  
+`params.setKeyStore("./src/main/java/server/.keystore", "pass", null, null);`
+
+先运行server
+再运行client,加上参数arguments为secure  
+  
+完成。
