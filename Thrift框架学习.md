@@ -23,5 +23,22 @@ yum -y install openssl openssl-devel
 参考网址：http://thrift.apache.org/docs/install/
 
 ## 开始使用
-首先，新建一个文件，比如hello.thrift
+首先，新建一个文件，比如hello.thrift  
 用`thrift --gen java hello.thrift` 生成一套代码
+
+具体可以参考
+http://thrift.apache.org/tutorial/java
+这里有生成报错Warning没关系，不要管。
+已经非常详细了，不过注意的是里面的`CalculatorHandler`文件是不存在的，可以在http://thrift.apache.org/得到。  
+
+编译器用maven的方式安装thrift
+
+执行SharedServer，编译后报错`Could not load file: ../../lib/java/test/.keystore`
+
+需要用到keytool工具来生成密钥
+<b>私钥</b>
+`keytool -genkeypair -alias certificatekey -keyalg RSA -validity 36500 -keystore .keystore`
+
+<b>公钥</b>
+`keytool -export -alias certificatekey -keystore .keystore -rfc -file server.cer`
+
