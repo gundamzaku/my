@@ -62,6 +62,13 @@ http://www.jianshu.com/u/34eadc1d5303
 Apache Kafka是分布式发布-订阅消息系统。它最初由LinkedIn公司开发，之后成为Apache项目的一部分。Kafka是一种快速、可扩展的、设计内在就是分布式的，分区的和可复制的提交日志服务。
 
 ## HashMap的原理？桶的结构？扩容方法中新的桶的值有什么映射关系？桶中的一个链表的数据是怎么映射到新的map中去？
+哈希表是由数组+链表组成的，一个长度为16的数组中，就是从hash(key)%len获得，也就是元素的key的哈希值对数组长度取模得到  
+HashMap里面实现一个静态内部类Entry，其重要的属性有 key , value, next  
+```Java
+transient Entry[] table;
+```
+http://blog.csdn.net/vking_wang/article/details/14166593  
+
 桶排序的原理是：将数组分到有限数量的桶子里。每个桶子再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的数组内的数值是均匀分配的时候，桶排序使用线性时间（Θ（n））。但桶排序并不是 比较排序，他不受到 O(n log n) 下限的影响。主要原理是：利用了空间换时间的方法。
 
 ## ConcurrentHashMap有什么特点？和HashMap比有什么优势？ConcurrentHashMap的数据结构和HashMap有什么区别？put和get方法是怎么实现的？
