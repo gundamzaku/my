@@ -38,3 +38,9 @@ ConcurrentHashMap锁的方式是稍微细粒度的。 ConcurrentHashMap将hash�
 
 ## Nio的机制是什么？解释一下Nio？
 ## 当一个用户在浏览器中输入baidu.com之后，这其中都发生了什么？
+1. DNS域名解析  
+2. 建立TCP连接  
+3. 发起HTTP请求  
+4. 接受响应结果  
+5. 浏览器解析html  
+6. 浏览器布局渲染  
