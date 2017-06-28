@@ -11,9 +11,21 @@ class Test {
 
 ## 下段代码会发生什么
 ```Java
-
+List<Integer> list1 = new ArrayList<>();
+List list2 = list1;
+list2.add("a");
+list1.get(0);
+list1.get(0);
+Integer a = list.get(0);
 ```
+这段代码有问题
 ## GC分代回收机制是什么？我们怎么确定一个对象是可以回收的？一个对象在回收的过程中如果发生了循环引用，JVM是怎么解决的？JAVA堆中的对象在回收的过程中具体发生了什么？新建立的对象是在堆的哪部分。
+http://www.jianshu.com/p/ace2aa692f96
+http://www.jianshu.com/p/bfa5337ef59e
+http://www.jianshu.com/p/440b641c08cb
+http://www.jianshu.com/u/34eadc1d5303
+原理较多
+
 ## kafka是怎么保证数据稳健性的？当A机器得到消息但是挂掉之后是怎么确保这条数据的？
 Apache Kafka是分布式发布-订阅消息系统。它最初由LinkedIn公司开发，之后成为Apache项目的一部分。Kafka是一种快速、可扩展的、设计内在就是分布式的，分区的和可复制的提交日志服务。
 
