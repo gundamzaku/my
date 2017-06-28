@@ -1,8 +1,8 @@
-# 发展的历程
+## 发展的历程
 从 数据访问框架(ORM) -> Web框架(MVC) -> 分布式服务框架(RPC)  -> 资源调度和治理中心(SOA)
 主要解决的是千万级用户量的处理。
 
-### 安装mvn
+## 安装
 http://maven.apache.org/download.cgi
 在windows的环境变量中配置
 
@@ -22,7 +22,6 @@ yum -y install openssl openssl-devel
 大至上就这么多，另外记得需要有足够的内够，不然也会报错。  
 参考网址：http://thrift.apache.org/docs/install/
 
-```
-服务提供者\服务消费者
-```
-## 服务提供者
+## 开始使用
+首先，新建一个文件，比如hello.thrift
+用`thrift --gen java hello.thrift` 生成一套代码
