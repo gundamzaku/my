@@ -69,6 +69,9 @@ transient Entry[] table;
 ```
 http://blog.csdn.net/vking_wang/article/details/14166593  
 
+下面这篇文章已经解释的相当好了
+http://www.importnew.com/10620.html
+
 桶排序的原理是：将数组分到有限数量的桶子里。每个桶子再个别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排序）。桶排序是鸽巢排序的一种归纳结果。当要被排序的数组内的数值是均匀分配的时候，桶排序使用线性时间（Θ（n））。但桶排序并不是 比较排序，他不受到 O(n log n) 下限的影响。主要原理是：利用了空间换时间的方法。
 
 ## ConcurrentHashMap有什么特点？和HashMap比有什么优势？ConcurrentHashMap的数据结构和HashMap有什么区别？put和get方法是怎么实现的？
@@ -76,6 +79,25 @@ ConcurrentHashMap融合了hashtable和hashmap二者的优势。
 但是hashtable每次同步执行的时候都要锁住整个结构  
 hashtable是做了同步的，hashmap未考虑同步。所以hashmap在单线程情况下效率较高。hashtable在的多线程情况下，同步操作能保证程序执行的正确性  
 ConcurrentHashMap锁的方式是稍微细粒度的。 ConcurrentHashMap将hash表分为16个桶（默认值）  
+
+ConcurrentHashMap在线程安全的基础上提供了更好的写并发能力，但同时降低了对读一致性的要求。
+
+ConcurrentHashMap的设计与实现非常精巧，大量的利用了volatile，final，CAS等lock-free技术来减少锁竞争对于性能的影响，无论对于Java并发编程的学习还是Java内存模型的理解，ConcurrentHashMap的设计以及源码都值得非常仔细的阅读与揣摩。
+
+jdk1.8里面被重写了，用了很多算法。
+
+HashTable的迭代器是强一致性的，而ConcurrentHashMap是弱一致的。
+
+这里的弱一致性是指put操作将一个元素加入到底层数据结构后，get可能在某段时间内还看不到这个元素。实际应用中这方式有问题。
+
+ConcurrentHashMap在写的时候用锁了，在读的时候并没有用锁。
+
+这一篇讲得非常完善
+http://blog.csdn.net/basycia/article/details/51890699
+
+
+http://ifeve.com/java-concurrent-hashmap-1/
+http://ifeve.com/java-concurrent-hashmap-2/
 
 ## Nio的机制是什么？解释一下Nio？
 ## 当一个用户在浏览器中输入baidu.com之后，这其中都发生了什么？
