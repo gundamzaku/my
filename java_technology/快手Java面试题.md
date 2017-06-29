@@ -92,11 +92,10 @@ HashTable的迭代器是强一致性的，而ConcurrentHashMap是弱一致的。
 
 ConcurrentHashMap在写的时候用锁了，在读的时候并没有用锁。
 
-这一篇讲得非常完善
-http://blog.csdn.net/basycia/article/details/51890699
-
-
-http://ifeve.com/java-concurrent-hashmap-1/
+这一篇讲得非常完善  
+http://blog.csdn.net/basycia/article/details/51890699  
+这两篇看完，基本理解，要想深入就只能看源代码了
+http://ifeve.com/java-concurrent-hashmap-1/  
 http://ifeve.com/java-concurrent-hashmap-2/
 
 ## Nio的机制是什么？解释一下Nio？
