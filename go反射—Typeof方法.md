@@ -186,3 +186,90 @@ func main()  {
 
 这样一来，所有的问题和疑惑就完全解开啦〜可以安心收工了。
 
+```go
+package selfReflect
+import (
+	"unsafe"
+)
+
+type Type interface {
+	//String() string
+
+}
+
+type rtype struct {
+	size          uintptr
+	ptrdata       uintptr
+	hash          uint32         // hash of type; avoids computation in hash tables
+	alg           *typeAlg       // algorithm table
+	gcdata        *byte          // garbage collection data
+	string        *string        // string form; unnecessary but undeniably useful
+	*uncommonType                // (relatively) uncommon fields
+	kind          uint8
+}
+
+type typeAlg struct {
+	hash func(unsafe.Pointer, uintptr) uintptr
+	equal func(unsafe.Pointer, unsafe.Pointer) bool
+}
+
+type method struct {
+	name    *string        // name of method
+	pkgPath *string        // nil for exported Names; otherwise import path
+	mtyp    *rtype         // method type (without receiver)
+	typ     *rtype         // .(*FuncType) underneath (with receiver)
+	ifn     unsafe.Pointer // fn used in interface call (one-word receiver)
+	tfn     unsafe.Pointer // fn used for normal method call
+}
+
+type uncommonType struct {
+	name    *string  // name of type
+	pkgPath *string  // import path; nil for built-in types like int, string
+	methods []method // methods associated with type
+}
+
+type emptyInterface struct {
+	typ  *rtype
+	word unsafe.Pointer
+}
+
+func (t *rtype) String() string { return *t.string }
+
+//空interface(interface{})不包含任何的method，正因为如此，所有的类型都实现了空interface。
+func TypeOf(i interface{}) Type {
+
+	//在ＧＯ中有内存安全性的限制，于是下面的转换是不被允许的
+	//两个不同指针类型的值，例如 int64和 float64。
+	//指针类型和uintptr的值。
+	//unsafe.Pointer，我们可以打破Go类型和内存安全性，并使上面的转换成为可能
+	//这里是把i强制转换成了emptyInterface指针
+	//unsafe里只有几个定义没有具体实现？
+	//fmt.Println(unsafe.Pointer(&i))
+
+	eface := *(*emptyInterface)(unsafe.Pointer(&i))
+	return toType(eface.typ)
+}
+
+func toType(t *rtype) Type {
+	if t == nil {
+		return nil
+	}
+	return t
+}
+```
+main.go
+```go
+package main
+
+
+import (
+	"fmt"
+	"selfReflect"
+)
+
+func main()  {
+	var i int = 123
+	fmt.Println(selfReflect.TypeOf(i))    //int
+
+}
+```
