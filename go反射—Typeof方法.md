@@ -56,6 +56,133 @@ type uncommonType struct {
 ```
 这一来一去，事情就变得复杂了。他们到底代表什么意思？虽然源码中还有英文的注释，但是究竟他们之间是如何运作起来的，我还是不清楚。
 目前可以肯定的是`eface := *(*emptyInterface)(unsafe.Pointer(&i))`这段代码执行以后。
-现在fmt.println(eface.uncommonType.name)`(eface.name)`也可以，他会自动跳过uncommonType，形成一个缩写。
+现在fmt.println(eface.typ.uncommonType.name)`(eface.typ.name)`也可以，他会自动跳过uncommonType，形成一个缩写。
 我决定单独试一下这段代码
-现在再进行抽象
+于是我把这段代码单独拎了出来
+```go
+package main
+
+import (
+	"unsafe"
+	"fmt"
+)
+
+type typeAlg struct {
+	hash func(unsafe.Pointer, uintptr) uintptr
+	equal func(unsafe.Pointer, unsafe.Pointer) bool
+}
+
+type spcommonType struct {
+	name    *string  // name of type
+}
+type supertype struct {
+	size          uintptr
+	ptrdata       uintptr
+	hash          uint32         // hash of type; avoids computation in hash tables
+	alg           *typeAlg       // algorithm table
+	gcdata        *byte          // garbage collection data
+	string        *string        // string form; unnecessary but undeniably useful
+	*spcommonType                // (relatively) uncommon fields
+}
+
+type toConvInterface struct {
+	typ  *supertype
+	word unsafe.Pointer
+}
+
+func main()  {
+	var i interface{} = 900
+	eface := *(*toConvInterface)(unsafe.Pointer(&i))
+	fmt.Println(eface.typ.name)
+}
+```
+现在执行，发现打印现来的是0x113b90，怎么回事？一看这个就是是个内存地址了，`fmt.Println(*eface.typ.name)`是我忘记加上指针了。
+现在可以成功的显示`int`
+我试着想再次精简代码，发现删除任何一个地方，都会使程序无法执行，于是就到此为至。
+目前暂时不想去研究这块的深理，故且我认为这是unsafe.Pointer进行强制转类型以后的某种特点的格式吧。在这段DEMO中我有意将方法的名字全部重新定义了一下，发现仍然可以执行，那显然是和结构有关系，而和方法名称无关。
+
+接下来，再回到原来的程序中去。我在main方法里面调用了TypeOf(i)方法
+```go
+package main
+
+
+import (
+	"fmt"
+	"selfReflect"
+)
+
+func main()  {
+	var i int = 123
+	fmt.Println(selfReflect.TypeOf(i))    //int
+
+}
+```
+理论上来讲，应该也显示出`Int`才对吧。事实上并没有，而是打印出了一串我看不懂的东西`&{8 0 4149441018 0x191630 0x135098 0x114040 0xbfec8 0}`
+这是什么回事，typeof方法和reflect中的源代码方法比较了一下，并没有什么问题
+```go
+func TypeOf(i interface{}) Type {
+	eface := *(*emptyInterface)(unsafe.Pointer(&i))
+	return toType(eface.typ)
+}
+
+func toType(t *rtype) Type {
+	if t == nil {
+		return nil
+	}
+	return t
+}
+
+```
+那问题会出在哪里？？
+
+经过无法用言语来形容的缜密排查之后，我终于灵感大开，发现一段不起眼的代码
+`func (t *rtype) String() string { return *t.string }`
+难道是……
+我把这段代码和上面的代码合并了一下
+```go
+func toType(t *rtype) Type {
+	if t == nil {
+		return nil
+	}
+	return *t.string
+}
+```
+return的内容作了调整，意外的发现成功了，现在是成功打印出`int`
+
+那么那段代码到底做了什么事情呢？从字面上来看，他是rtype的一个字方法（go用struct来做面向对象真的让人很不习惯）
+然后它重写了t。
+这样说有点拗口，或者说他重定义了打印t时，t显示的内容。
+这点需要我再起一段代码验证一下。
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+type supertype struct {
+	string        *string
+}
+
+func (t *supertype) SetT() {
+	var s string = "hello go"
+	t.string = &s
+}
+
+func (t *supertype) String() string {
+	return *t.string
+}
+
+
+func main()  {
+	t := supertype{}
+	t.SetT()
+	s:=&t
+	fmt.Println(s)
+}
+```
+然后运行一下，咦……打印出了"hello go"，这么看来还真被我给蒙对了，String()方法是隐性的。
+
+这样一来，所有的问题和疑惑就完全解开啦〜可以安心收工了。
+
