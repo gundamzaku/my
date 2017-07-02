@@ -174,6 +174,8 @@ getDesc: i will conqure the world
 这就是unsafe的妙处，绕开了go的限制，也因此不受go的推荐。
 
 uintptr到现在我还没有完全理解这个概念，下一次要学一下了。
-
+```
+在Go语言中，还有一个专门用于存储内存地址的类型 uintptr。而 uintptr 类型与 int 类型和 uint 类型一样，也属于数组类型。它的值是一个能够保存一个指针类型值（简称指针值）的位模式形式。
+```
 
 
