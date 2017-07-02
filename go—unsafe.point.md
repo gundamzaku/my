@@ -111,4 +111,30 @@ result:
 由此看来，unsafe.point确实是unsafe了。
 
 再回到之前reflect代码上面来看这个point
+```go
+type emptyInterface struct {
+	typ  int
+	word unsafe.Pointer
+}
+
+func main()  {
+
+	var num int = 800
+	var i *int
+	i = &num
+	fmt.Println(*i)
+
+	var s *emptyInterface
+	s=(*emptyInterface)(unsafe.Pointer(i))
+	fmt.Println(s.typ)
+	fmt.Println(s.word)
+}
+
+result:
+800
+800
+0xc82003ded8
+```
+这里是将int指针转成一个结构体。并非太难理解
+
 
