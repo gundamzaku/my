@@ -137,4 +137,17 @@ result:
 ```
 这里是将int指针转成一个结构体。并非太难理解
 
+最后，我将笔记（1)中的代码回顾一下，发现
+```go
+var num int = 800
+var e interface{}
+e = num
 
+eface := *(*emptyInterface)(unsafe.Pointer(&e))
+fmt.Println(*eface.typ.name)
+```
+有一个问题，就是之前的结构体中的代码里，int类型必须转成interface{}类型，才可以进行指针转换。
+否则无法与`emptyInterface`中的`rtype`结构对应上，而报错。
+这大概是因为`rtyp`的结构体是interface{}的内置对应属性，于我们程序开发来说，是无法更改的。
+
+unsafe中除了point以外，还有两个方法，目前在此次学习之后，仍然是一知半解。
