@@ -38,3 +38,23 @@ int main() {
     return 0;
 }
 ```
+
+```c
+#include <stdio.h>
+
+void * getVal(void * vp){
+    printf("hello\n");
+    return vp;
+}
+
+int main() {
+
+    char *c;
+    c = "a";
+    void * rs = getVal(c);
+    printf("%c",*(char *)rs);
+    return 0;
+}
+```
+从上面两段代码我们可以看出来，同样的函数，可以传入不同类型的变量，再也没有对变量类型的约束。
+这突然让我想到了PHP，他的所有的变量赋值都是弱类型的，他是C写的，是否和`void *`有关系呢？
