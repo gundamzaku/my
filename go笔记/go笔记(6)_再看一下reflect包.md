@@ -209,3 +209,25 @@ func main() {
 按顺序执行，到`s := t.nameOff(t.str).name()`的时候，我们将s打印出来，发现是`string`，看来这个nameOff()就是获取变量的信息的。
 
 `小技巧：修改go/src包中的代码，用go build -a 编译才可以生效，否则不行`
+
+之前我是用的抠代码的战术，现在不用了，实在是太费力，如果这样用下去，我要看到牛年马月了，所以现在直接修改src包的代码。
+我再看看t.nameOff(t.str)到底做了什么？
+t.str得到的值是5424，这是什么意思？或者说这代表的是字符串？为了释疑，我又试着将`var val string = "hello";`的类型换成了整形，得到939；换成了布尔类型得到了3224。
+目前我无法确认它们的意思，不过似乎是每一种类型会对应一种数字。先标记一下，以后说不定会有地方碰到。
+
+`return name{(*byte)(resolveNameOff(unsafe.Pointer(t), int32(off)))}`
+nameoff()返回的是一个结构体，经过resolveNameOff返回一个无类型的指针，然后又将这个指针转换化`(*byte)`类型。
+
+`resolveNameOff方法的实现非常复杂，并且在runtime包的type.go方法里面，因此这里略过。`
+
+type name struct {}是一个对象，并且下面有五个方法继承
+```go
+func (n name) data(off int) *byte {}
+func (n name) isExported() bool {}
+func (n name) nameLen() int {}
+func (n name) tagLen() int {}
+func (n name) name() (s string) {}
+func (n name) tag() (s string) {}
+func (n name) pkgPath() string {}
+```
+看到这里，有点晕，但是毫无疑问的是，这个name的对象，保存的就是变量的一些基础信息
