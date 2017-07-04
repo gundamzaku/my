@@ -205,3 +205,7 @@ func main() {
 来做例子吧
 
 `package runtime主要是与go的runtime系统进行互动操作，例如控制goroutine的函数等。它也包含reflect package所需的低等级信息。`
+
+按顺序执行，到`s := t.nameOff(t.str).name()`的时候，我们将s打印出来，发现是`string`，看来这个nameOff()就是获取变量的信息的。
+
+`小技巧：修改go/src包中的代码，用go build -a 编译才可以生效，否则不行`
