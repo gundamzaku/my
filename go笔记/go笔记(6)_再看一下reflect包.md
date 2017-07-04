@@ -34,4 +34,5 @@ const (
 ```
 这组常量都是Kind类型（即uint类型），iota值为0，这个是在builtin包中定义的一个常量  
 `const iota = 0 // Untyped int.`  
-按照go语言特殊的定义，从Invalid向下，就是不停的++的过程，Invalid为0，Bool为1，Int为2……以此类推。  
+按照go语言特殊的定义，从Invalid向下，就是不停的++的过程，Invalid为0，Bool为1，Int为2……以此类推。  
+可是我在`fmt.Println(reflect.Int)`的时候，显示的result为`int`，而不是数字，这是怎么回事？
