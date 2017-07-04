@@ -142,11 +142,66 @@ type StructTag string
 type ValueError struct {}
 ```
 
-最后是他的方法，一共21个，有点多。下面一个一个来看到底是干什么用的吧。
-首先我先看之前提到过的reflect.typeof()方法，这是获得变量类型的方法。我看了一下源代码，却发现和我之前使用1.5的源代码是完全不一样的。
-这让我感觉有些意外，是因为我从1.5升级到1.8的关系，还是因为mac机和win机系统不一样的关系？（我是mac和win混着用的）
-这样一来，我要重新梳理一下。
-可以对比一下代码的不同之处
-首先看rtype类型
+最后是他的方法，一共21个，有点多。下面一个一个来看到底是干什么用的吧。  
+首先我先看之前提到过的reflect.typeof()方法，这是获得变量类型的方法。我看了一下源代码，却发现和我之前使用1.5的源代码是完全不一样的。  
+这让我感觉有些意外，是因为我从1.5升级到1.8的关系，还是因为mac机和win机系统不一样的关系？（我是mac和win混着用的）  
+这样一来，我要重新梳理一下。  
+可以对比一下代码的不同之处  
+首先看rtype类型  
 原先的rtype
+```go
+type rtype struct {
+	size          uintptr
+	ptrdata       uintptr
+	hash          uint32         // hash of type; avoids computation in hash tables
+	alg           *typeAlg       // algorithm table
+	gcdata        *byte          // garbage collection data
+	string        *string        // string form; unnecessary but undeniably useful
+	*uncommonType                // (relatively) uncommon fields
+	kind          uint8
+
+}
 ```
+现在的rtype
+```go
+type rtype struct {
+	size       uintptr
+	ptrdata    uintptr
+	hash       uint32   // hash of type; avoids computation in hash tables
+	tflag      tflag    // extra type information flags
+	align      uint8    // alignment of variable with this type
+	fieldAlign uint8    // alignment of struct field with this type
+	kind       uint8    // enumeration for C
+	alg        *typeAlg // algorithm table
+	gcdata     *byte    // garbage collection data
+	str        nameOff  // string form
+	ptrToThis  typeOff  // type for pointer to this type, may be zero
+}
+```
+关键的`*uncommonType`没有了
+在看一下原先的string()方法
+```go
+func (t *rtype) String() string { return *t.string }
+```
+现在的string()方法
+```go
+func (t *rtype) String() string {
+	s := t.nameOff(t.str).name()
+	if t.tflag&tflagExtraStar != 0 {
+		return s[1:]
+	}
+	return s
+}
+```
+怎么一下子复杂了这么多？
+直接从String()入手，首先，它产生了一个t.str的变量。
+我拿
+```go
+func main() {
+	var val string = "hello";
+	fmt.Println(reflect.TypeOf(val))
+}
+```
+来做例子吧
+
+`package runtime主要是与go的runtime系统进行互动操作，例如控制goroutine的函数等。它也包含reflect package所需的低等级信息。`
