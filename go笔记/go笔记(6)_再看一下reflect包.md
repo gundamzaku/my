@@ -82,4 +82,43 @@ func (k Kind) String() string {
 我现在`fmt.println(Int8)`，实际上是传了一个值8到String()里面去，代码判定8小于kindNames的总长度，因此，将`Uint8:"uint8"`返回
 如果我传一个超长的值，const (UnsafePointer)后面我再加一个常量如Unknow，这个常量在KindNames中并没有，然后再试着println  
 `result:kind27`,解发了`return "kind" + strconv.Itoa(int(k))`的方法
+`将整数转换为十进制字符串形式（即：FormatInt(i, 10) 的简写）`,这样，这组常量的定义算是明白了。  
 
+```go
+// ChanDir represents a channel type's direction.
+type ChanDir int
+
+const (
+	RecvDir ChanDir             = 1 << iota // <-chan
+	SendDir                                 // chan<-
+	BothDir = RecvDir | SendDir             // chan
+)
+```
+看到chan，就可以断定这组常量和go的通道有关系了。
+很明显，这组常量和
+```go
+func (d ChanDir) String() string {
+	switch d {
+	case SendDir:
+		return "chan<-"
+	case RecvDir:
+		return "<-chan"
+	case BothDir:
+		return "chan"
+	}
+	return "ChanDir" + strconv.Itoa(int(d))
+}
+```
+也对应上了，功能效果与上面的一样。  
+目前并不知道用在哪里，先跳过。
+再有一组
+```go
+type SelectDir int
+const (
+	_             SelectDir = iota
+	SelectSend              // case Chan <- Send
+	SelectRecv              // case <-Chan:
+	SelectDefault           // default
+)
+```
+这一次，这组常量老老实实地用了int，没有做任何转义。  
