@@ -121,4 +121,25 @@ const (
 	SelectDefault           // default
 )
 ```
-这一次，这组常量老老实实地用了int，没有做任何转义。  
+这一次，这组常量老老实实地用了int，没有做任何转义。  
+这三组就是reflect里面对外的三种类型的常量了，我们都可以直接调用。
+分别是Kind，ChanDir和SelectDir类型。  
+
+接下来，再看一下reflect的自定义类型，一共十一个
+分别是：
+```go
+type Type interface {}
+type ChanDir int
+type Kind uint
+type Method struct {}
+type Value struct {}
+type SelectCase struct {}
+type SelectDir int
+type SliceHeader struct {}
+type StringHeader struct {}
+type StructField struct {}
+type StructTag string
+type ValueError struct {}
+```
+
+最后是他的方法，一共21个，有点多。下面一个一个来看到底是干什么用的吧。
