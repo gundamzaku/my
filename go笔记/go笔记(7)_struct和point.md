@@ -14,3 +14,5 @@ func main()  {
 	fmt.Println(student)
 }
 ```
+创建一个结构体dan，然后赋值。  
+接下来，我试着把它改造成一个指针的形式。  
