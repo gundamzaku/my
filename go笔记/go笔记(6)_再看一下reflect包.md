@@ -376,7 +376,18 @@ string
 
 不过很可惜，这篇学习比较惨，因为我没有能深入地了解到go的本质上面，一些概念仍然一知半解。同时我也发现，越是往低层的东西，其实我们可以修改的越是有限。  
 
-下面是我抽出来的代码，里面有一些冗余，但是不想改了    
+下面是我抽出来的代码，里面有一些冗余，但是不想改了   
+
+```go
+runtime/type.go里面改造，追加下面两个方法
+func GetTypes() uintptr{
+	return *&firstmoduledata.types
+}
+func GetETypes() uintptr{
+	return *&firstmoduledata.etypes
+}
+```
+
 ```go
 package main
 
@@ -523,12 +534,12 @@ func rOff(ptrInModule unsafe.Pointer, off nameOff) name {
 	}
 	base := uintptr(ptrInModule)
 	//println(*&fm.etypes)
-	runtime.GetFm()
-
+	getTypes := runtime.GetTypes()
+	GetETypes := runtime.GetETypes()
 	for md := &fm; md != nil; md = md.next {
 		//这里是写死的数据，仅作参考
-		md.types = 4757024;
-		md.etypes = 4982027;
+		md.types = getTypes;
+		md.etypes = GetETypes;
 
 		if base >= md.types && base < md.etypes {
 			res := md.types + uintptr(off)
@@ -575,7 +586,7 @@ func (t *_type) String() string {
 
 func main() {
 	var s string = "hello"
+	//var s int = 100
 	fmt.Println(TypeOf(s))
 }
-
 ```
