@@ -81,7 +81,7 @@ func (k Kind) String() string {
 真正将两者串起来的是这个String()的隐函数。之所以称之为隐函数，是因为它控制了fmt.println()
 我现在`fmt.println(Int8)`，实际上是传了一个值8到String()里面去，代码判定8小于kindNames的总长度，因此，将`Uint8:"uint8"`返回
 如果我传一个超长的值，const (UnsafePointer)后面我再加一个常量如Unknow，这个常量在KindNames中并没有，然后再试着println  
-`result:kind27`,解发了`return "kind" + strconv.Itoa(int(k))`的方法
+`result:kind27`,解决了`return "kind" + strconv.Itoa(int(k))`的方法
 `将整数转换为十进制字符串形式（即：FormatInt(i, 10) 的简写）`,这样，这组常量的定义算是明白了。  
 
 ```go
@@ -321,3 +321,11 @@ md.etypes:4972956
 base这个变量目前是4807776,介于两个数据之间，也使得`if base >= md.types && base < md.etypes {}`这个条件成立。
 说明了md.types是变量类型的下限，md.etypes是变量类型的上限，变量类型这个信息是不会超过两者之外的。  
 等一下，根据前面学到的知识base存放的是指针的整形，那么md.types和md.etypes岂不一样？
+
+最后还原为： 0x488c60-0x4be23d
+`Go 有指针，但是没有指针运算。你不能用指针变量遍历字符串的各个字节。`
+
+代码进行到这里，需要做一下中断。因为碰到了一个无法解决的问题
+`return name{(*byte)(unsafe.Pointer(res))}`
+这对阅读代码来说造成了相当的困难，我决定先开一篇新的，专门来看看
+structs里是怎么引入指针的。
