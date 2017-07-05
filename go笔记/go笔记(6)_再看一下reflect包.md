@@ -325,7 +325,257 @@ base这个变量目前是4807776,介于两个数据之间，也使得`if base >=
 最后还原为： 0x488c60-0x4be23d
 `Go 有指针，但是没有指针运算。你不能用指针变量遍历字符串的各个字节。`
 
-代码进行到这里，需要做一下中断。因为碰到了一个无法解决的问题
 `return name{(*byte)(unsafe.Pointer(res))}`
-这对阅读代码来说造成了相当的困难，我决定先开一篇新的，专门来看看
-structs里是怎么引入指针的。
+返回的name{}是一个对象，要注意的是，这个name{}对象仍然是reflect包中的type.go文件里的，而非runtime包里面的，尽管runtime包中也存在  
+我们把焦点定位在这个name{}对象中来。  
+```go
+func (n name) name() (s string) {
+
+	if n.bytes == nil {
+		return
+	}
+	b := (*[4]byte)(unsafe.Pointer(n.bytes))
+
+	hdr := (*stringHeader)(unsafe.Pointer(&s))
+	hdr.Data = unsafe.Pointer(&b[3])
+	hdr.Len = int(b[1])<<8 | int(b[2])
+	return s
+}
+```
+获得变量的类型的name是通过这个方法
+`b := (*[4]byte)(unsafe.Pointer(n.bytes))`是把n.bytes指针转换成了一个4位数组的指针。  
+然后声明出一个string类型的变量s，接着把hdr指到了s的指针地址上面  
+然后分别赋值Data和Len，然后返回，这时候println(s)发现result就是string，，这是什么鬼？  
+我把这段代码单独抽出来测试
+然而抽出来的代码无法执行，走到`for next := &firstmoduledata; next != nil; next = next.next {}`的时候，一直拿不到firstmoduledata的值。
+md.types和md.etypes取到的全是0。一点用也没。  
+折腾了我半天，突然前面在厕所小便的时候灵光一闪。  
+把type.go放在runtime里面应该不是没有理由的。  
+runtime可以理解成go的虚拟机不是？  
+虚拟机在运行的时候，有些变量在内存里是动态的不是？  
+所以type.go里面的内容，很可能是跟着虚拟机走，动态分配的，不能抽出来。  
+为了验证这个道理，我在runtime/type.go里面加入一段代码  
+```go
+func GetFm() {
+	println(*&firstmoduledata.types)
+	println(*&firstmoduledata.etypes)
+	//return &firstmoduledata.types
+}
+```
+然后在我的main()方法中调用，主要是为了看数据。  
+果然，这两个值一直在变，这两个值是指针，也就是说地址一直在变，于是我把这两个变动的值直接写死到我代码中（不一定每次成功，我调了几次）  
+```
+string
+4757024
+4982027
+*string
+```
+终于出现了我要的数值。
+
+大体上我也明白了go是怎么操作反射去取一些变量或方法的信息的了。  
+
+不过很可惜，这篇学习比较惨，因为我没有能深入地了解到go的本质上面，一些概念仍然一知半解。同时我也发现，越是往低层的东西，其实我们可以修改的越是有限。  
+
+下面是我抽出来的代码，里面有一些冗余，但是不想改了    
+```go
+package main
+
+import (
+	"fmt"
+	"unsafe"
+	"runtime"
+)
+
+type name struct {
+	bytes *byte
+}
+type stringHeader struct {
+	Data unsafe.Pointer
+	Len  int
+}
+
+func (n name) name() (s string) {
+	if n.bytes == nil {
+		return
+	}
+	b := (*[4]byte)(unsafe.Pointer(n.bytes))
+	hdr := (*stringHeader)(unsafe.Pointer(&s))
+	hdr.Data = unsafe.Pointer(&b[3])
+	hdr.Len = int(b[1]) << 8 | int(b[2])
+	println(s)
+	return s
+}
+
+type nameOff int32
+type functab struct {
+	entry   uintptr
+	funcoff uintptr
+}
+type textsect struct {
+	vaddr    uintptr // prelinked section vaddr
+	length   uintptr // section length
+	baseaddr uintptr // relocated section address
+}
+
+type itab struct {
+	inter  *interfacetype
+	_type  *_type
+	link   *itab
+	bad    int32
+	inhash int32      // has this itab been added to hash?
+	fun    [1]uintptr // variable sized
+}
+
+type interfacetype struct {
+	typ     _type
+	pkgpath name
+	mhdr    []imethod
+}
+type imethod struct {
+	name nameOff
+	ityp typeOff
+}
+type ptabEntry struct {
+	name nameOff
+	typ  typeOff
+}
+type modulehash struct {
+	modulename   string
+	linktimehash string
+	runtimehash  *string
+}
+type bitvector struct {
+	n        int32 // # of bits
+	bytedata *uint8
+}
+type moduledata struct {
+	pclntable    []byte
+	ftab         []functab
+	filetab      []uint32
+	findfunctab  uintptr
+	minpc, maxpc uintptr
+	text, etext           uintptr
+	noptrdata, enoptrdata uintptr
+	data, edata           uintptr
+	bss, ebss             uintptr
+	noptrbss, enoptrbss   uintptr
+	end, gcdata, gcbss    uintptr
+	types, etypes         uintptr
+	textsectmap []textsect
+	typelinks   []int32 // offsets from types
+	itablinks   []*itab
+	ptab []ptabEntry
+	pluginpath string
+	pkghashes  []modulehash
+	modulename   string
+	modulehashes []modulehash
+	gcdatamask, gcbssmask bitvector
+	typemap map[typeOff]*_type // offset to *_rtype in previous module
+	next *moduledata
+}
+type typeAlg struct {
+	hash  func(unsafe.Pointer, uintptr) uintptr
+	equal func(unsafe.Pointer, unsafe.Pointer) bool
+}
+
+var fm moduledata  // linker symbol
+type tflag uint8
+type typeOff int32 // offset to an *rtype
+/*
+type rtype struct {
+	size       uintptr
+	ptrdata    uintptr
+	hash       uint32   // hash of type; avoids computation in hash tables
+	tflag      tflag    // extra type information flags
+	align      uint8    // alignment of variable with this type
+	fieldAlign uint8    // alignment of struct field with this type
+	kind       uint8    // enumeration for C
+	alg        *typeAlg // algorithm table
+	gcdata     *byte    // garbage collection data
+	str        nameOff  // string form
+	ptrToThis  typeOff  // type for pointer to this type, may be zero
+}*/
+type _type struct {
+	size       uintptr
+	ptrdata    uintptr // size of memory prefix holding all pointers
+	hash       uint32
+	tflag      tflag
+	align      uint8
+	fieldalign uint8
+	kind       uint8
+	alg        *typeAlg
+	gcdata    *byte
+	str       nameOff
+	ptrToThis typeOff
+}
+/*
+func (t *rtype) nameOff(off nameOff) name {
+	return name{(*byte)(resolveNameOff(unsafe.Pointer(t), off))}
+}*/
+
+func (t *_type) nameOff(off nameOff) name {
+	return rOff(unsafe.Pointer(t), off)
+}
+
+func rOff(ptrInModule unsafe.Pointer, off nameOff) name {
+	if off == 0 {
+		return name{}
+	}
+	base := uintptr(ptrInModule)
+	//println(*&fm.etypes)
+	runtime.GetFm()
+
+	for md := &fm; md != nil; md = md.next {
+		//这里是写死的数据，仅作参考
+		md.types = 4757024;
+		md.etypes = 4982027;
+
+		if base >= md.types && base < md.etypes {
+			res := md.types + uintptr(off)
+			if res > md.etypes {
+				println("error")
+			}
+			return name{(*byte)(unsafe.Pointer(res))}
+		}
+	}
+	return name{}
+}
+
+type Type interface{}
+type emptyInterface struct {
+	typ  *_type
+	word unsafe.Pointer
+}
+
+func toType(t *_type) Type {
+	if t == nil {
+		return nil
+	}
+	return t
+}
+
+func TypeOf(i interface{}) Type {
+	eface := *(*emptyInterface)(unsafe.Pointer(&i))
+	return toType(eface.typ)
+}
+
+const (
+	tflagUncommon tflag = 1 << 0
+	tflagExtraStar tflag = 1 << 1
+	tflagNamed tflag = 1 << 2
+)
+
+func (t *_type) String() string {
+	s := t.nameOff(t.str).name()
+	if t.tflag & tflagExtraStar != 0 {
+		return s[1:]
+	}
+	return s
+}
+
+func main() {
+	var s string = "hello"
+	fmt.Println(TypeOf(s))
+}
+
+```
