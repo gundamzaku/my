@@ -1,0 +1,16 @@
+经过上一篇学习的惨痛失败，这次我将目标压缩在最小的范围之内。  
+
+首先先看一段最简单的代码：  
+
+```go
+type dan struct{
+	name string
+	age int
+}
+
+func main()  {
+	var student dan;
+	student = dan{"dan",20}
+	fmt.Println(student)
+}
+```
