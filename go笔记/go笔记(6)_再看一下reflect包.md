@@ -230,4 +230,80 @@ func (n name) name() (s string) {}
 func (n name) tag() (s string) {}
 func (n name) pkgPath() string {}
 ```
-看到这里，有点晕，但是毫无疑问的是，这个name的对象，保存的就是变量的一些基础信息
+看到这里，有点晕，但是毫无疑问的是，这个name的对象，保存的就是变量的一些基础信息  
+再来看resolveNameOff()这个方法，在type.go文件里，这个方法并没有实现，只有一段定义。
+`func resolveNameOff(ptrInModule unsafe.Pointer, off int32) unsafe.Pointer`
+这就奇怪了，那它到底是怎么实现的？在程序里面，不可能存在只有定义没有实现但是可以执行的代码吧。
+还好上面有一段注释`mplemented in the runtime package.`
+根据注释，在runtime包里面成功到找到了一个type.go的文件。  
+至于为什么会有两个type.go，我不知道，不过目前可以肯定的是，resolveNameOff()在runtime包里面实现了。因此再看一下这个具体的resolveNameOff代码，相当复杂，应该调用了不少底层的东西。
+```go
+func resolveNameOff(ptrInModule unsafe.Pointer, off nameOff) name {
+	if off == 0 {
+		return name{}
+	}
+	base := uintptr(ptrInModule)
+	for md := &firstmoduledata; md != nil; md = md.next {
+		if base >= md.types && base < md.etypes {
+			res := md.types + uintptr(off)
+			if res > md.etypes {
+				println("runtime: nameOff", hex(off), "out of range", hex(md.types), "-", hex(md.etypes))
+				throw("runtime: name offset out of range")
+			}
+			return name{(*byte)(unsafe.Pointer(res))}
+		}
+	}
+	//后面省略，还有一长串代码…………
+}
+```
+经过断点，发现在代码执行到一半的时候就返回了`return name{(*byte)(unsafe.Pointer(res))}`，松了一口气，要知道下面还有一大串的代码。  
+这段代码第一步是把rtype的指针地址转了过来，经过uintptr的转化，变成一个整形。  
+
+然后在循环中的firstmoduledata是一个变量定义
+var firstmoduledata moduledata  // linker symbol
+而moduledata又是一个很长的结构体，感觉么玩下去要疯啊……
+```go
+type moduledata struct {
+	pclntable    []byte
+	ftab         []functab
+	filetab      []uint32
+	findfunctab  uintptr
+	minpc, maxpc uintptr
+
+	text, etext           uintptr
+	noptrdata, enoptrdata uintptr
+	data, edata           uintptr
+	bss, ebss             uintptr
+	noptrbss, enoptrbss   uintptr
+	end, gcdata, gcbss    uintptr
+	types, etypes         uintptr
+
+	textsectmap []textsect
+	typelinks   []int32 // offsets from types
+	itablinks   []*itab
+
+	ptab []ptabEntry
+
+	pluginpath string
+	pkghashes  []modulehash
+
+	modulename   string
+	modulehashes []modulehash
+
+	gcdatamask, gcbssmask bitvector
+
+	typemap map[typeOff]*_type // offset to *_rtype in previous module
+
+	next *moduledata
+}
+看注释的意思：
+moduledata records information about the layout of the executable image
+moduledata记录了关于可执行的映象的层的信息
+moduledata is stored in read-only memory; none of the pointers here are visible to the garbage collector.
+moduledata是存在只读内存里面的，对垃圾回收器来说没有指针可见
+好吧……再次表示看不太懂。
+```
+看看这段`for md := &firstmoduledata; md != nil; md = md.next {}`都做了什么  
+moduledata是通过指针链的关系串起来的，因此这里的for就是判断`moduledata里面的next *moduledata`存不存在，存在的话一直遍历。  
+很明显，这里不存在，只遍历了一次。接下来，base就要同里面的属性进行对比。
+
