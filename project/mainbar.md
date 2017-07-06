@@ -7,10 +7,10 @@ url->add Member
 
 ### view member
 用户详细信息|可修改
->basic
->contacts
->card
->transaction
+>basic  
+>contacts  
+>card  
+>transaction  
 
 ```
 url->add member
@@ -42,8 +42,12 @@ url->query|不明
 ```
 
 ### reference
-报表
+参考
 ```
 url->view
 url->add reference
 ```
+
+### add reference
+增加参考
+>basic
