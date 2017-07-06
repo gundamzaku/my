@@ -11,8 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
@@ -23,40 +23,42 @@ public class Main {
          *Java.nio.charset.Charset处理了字符转换问题。
          * 它通过构造CharsetEncoder和CharsetDecoder将字符序列转换成字节和逆转换。
          */
-        Charset charset = Charset.forName("GBK");
+        Charset charset = Charset.forName("UTF-8");
         CharsetDecoder decoder = charset.newDecoder();
 
         //这个文件在src的外面
         RandomAccessFile aFile = new RandomAccessFile("newiotxt", "rw");
         FileChannel fileChannel = aFile.getChannel();
         //以上方法将创建一个容量为48字节的ByteBuffer,如果发现创建的缓冲区容量太小,唯一的选择就是重新创建一个大小合适的缓冲区.
-        ByteBuffer buf = ByteBuffer.allocate(2000);
-
+        ByteBuffer buf = ByteBuffer.allocate(30);
+        CharBuffer cb = CharBuffer.allocate(30);
         int bytesRead = 0;
         try {
             bytesRead = fileChannel.read(buf);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(bytesRead);
+        String s = "";
         while (bytesRead!=-1){
-            System.out.println("Read "+bytesRead);
-            buf.flip();//回绕缓冲区，回到缓存对
-            try {
-                decoder.decode(buf);
-            } catch (CharacterCodingException e) {
-                e.printStackTrace();
-            }
-            while(buf.hasRemaining()){
+            //System.out.println("Read "+bytesRead);
+            charset.decode(buf);
+            buf.flip();//回绕缓冲区
+            decoder.decode(buf,cb,false);
+            cb.flip();
 
-                System.out.print((char)buf.get());
+            for (int i = 0;cb.hasRemaining();i++){
+            //while(cb.hasRemaining()){
+                System.out.print(cb.get());
             }
+            //System.out.println();
             buf.clear();
+            cb.clear();
             try {
                 bytesRead = fileChannel.read(buf);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
         try {
             aFile.close();
@@ -66,5 +68,6 @@ public class Main {
     }
 }
 ```
-http://ifeve.com/channels/  
+目前还有问题，读取中文异常
+http://ifeve.com/channels/ 
 http://blog.csdn.net/chuyouyinghe/article/details/51461082
