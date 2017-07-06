@@ -86,14 +86,63 @@ public class Main {
 
 为了理解Buffer的工作原理，需要熟悉它的三个属性：
 
-1.capacity
+1.capacity  
 作为一个内存块，Buffer有一个固定的大小值，也叫“capacity”.你只能往里写capacity个byte、long，char等类型。一旦Buffer满了，需要将其清空（通过读数据或者清除数据）才能继续写数据往里写数据。
-2.position
-当你写数据到Buffer中时，position表示当前的位置。初始的position值为0.当一个byte、long等数据写到Buffer后， position会向前移动到下一个可插入数据的Buffer单元。position最大可为capacity – 1.
 
+2.position  
+当你写数据到Buffer中时，position表示当前的位置。初始的position值为0.当一个byte、long等数据写到Buffer后， position会向前移动到下一个可插入数据的Buffer单元。position最大可为capacity – 1.
 当读取数据时，也是从某个特定位置读。当将Buffer从写模式切换到读模式，position会被重置为0. 当从Buffer的position处读取数据时，position向前移动到下一个可读的位置。
-3.limit
+
+3.limit  
 在写模式下，Buffer的limit表示你最多能往Buffer里写多少数据。 写模式下，limit等于Buffer的capacity。  
 当切换Buffer到读模式时， limit表示你最多能读到多少数据。因此，当切换Buffer到读模式时，limit会被设置成写模式下的position值。换句话说，你能读到之前写入的所有数据（limit被设置成已写数据的数量，这个值在写模式下就是position）
 
 
+### Buffer的类型
+
+Java NIO 有以下Buffer类型  
+
+ByteBuffer  
+MappedByteBuffer  
+CharBuffer  
+DoubleBuffer  
+FloatBuffer  
+IntBuffer  
+LongBuffer   
+ShortBuffer  
+
+Java NIO开始支持scatter/gather，scatter/gather用于描述从Channel中读取或者写入到Channel的操作。
+
+### Scattering Reads  
+Scattering Reads是指数据从一个channel读取到多个buffer中。
+
+```java
+ByteBuffer header = ByteBuffer.allocate(128);
+ByteBuffer body   = ByteBuffer.allocate(1024);
+
+ByteBuffer[] bufferArray = { header, body };
+channel.read(bufferArray);
+```
+
+注意buffer首先被插入到数组，然后再将数组作为channel.read() 的输入参数。read()方法按照buffer在数组中的顺序将从channel中读取的数据写入到buffer，当一个buffer被写满后，channel紧接着向另一个buffer中写。
+
+Scattering Reads在移动下一个buffer前，必须填满当前的buffer，这也意味着它不适用于动态消息。换句话说，如果存在消息头和消息体，消息头必须完成填充（例如 128byte），Scattering Reads才能正常工作。
+
+### Gathering Writes
+
+Gathering Writes是指数据从多个buffer写入到同一个channel。
+
+```java 
+ByteBuffer header = ByteBuffer.allocate(128);
+ByteBuffer body   = ByteBuffer.allocate(1024);
+
+//write data into buffers
+
+ByteBuffer[] bufferArray = { header, body };
+
+channel.write(bufferArray);
+```
+
+buffers数组是write()方法的入参，write()方法会按照buffer在数组中的顺序，将数据写入到channel，注意只有position和limit之间的数据才会被写入。因此，如果一个buffer的容量为128byte，但是仅仅包含58byte的数据，那么这58byte的数据将被写入到channel中。因此与Scattering Reads相反，Gathering Writes能较好的处理动态消息。
+
+http://ifeve.com/java-nio-scattergather/
