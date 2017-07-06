@@ -1,6 +1,6 @@
 之前在reflect的tyoeof()方法上耗去了大量的时间，这让人有些沮丧。  
 
-让我们看看reflect包中一共有多少个方法呢？
+让我们看看reflect包中一共有多少个方法呢？  
 
 ```go
 reflect.Append()
@@ -27,13 +27,13 @@ reflect.ValueOf()
 reflect.Zero()
 ```
 
-哇！一共有22个方法，加上之前的typeof()是23个。没办法，既然别人能写得出来，我们也应该可以看得下来不是。
+哇！一共有22个方法，加上之前的typeof()是23个。没办法，既然别人能写得出来，我们也应该可以看得下来不是。  
 
-先从上向下看吧，第一个方法
+先从上向下看吧，第一个方法  
 `reflect.Append()`  
-完整个的方法是结构是`func Append(s Value, x ...Value) Value {}`
+完整个的方法是结构是`func Append(s Value, x ...Value) Value {}`  
 
-先看一下它的注释：
+先看一下它的注释：  
 ```
 // Append appends the values x to a slice s and returns the resulting slice.
 // As in Go, each x's value must be assignable to the slice's element type.
@@ -85,13 +85,13 @@ func main()  {
 从方法中可以看到我用了一个reflect.ValueOf()的方法，将切片类型做了转换，转成了reflect.Append()要求的value类型。  
 reflect.ValueOf()做了些什么？只能再到源代码中去翻。  
 
-在上面的那个方法中，我将slice变量传入reflect.ValueOf(),而在reflect.ValueOf()中，将slice转成了原始类型interface{}
+在上面的那个方法中，我将slice变量传入reflect.ValueOf(),而在reflect.ValueOf()中，将slice转成了原始类型interface{} 
 
 `*一切类型都可以变成interface{}类型`
 
 接下来，在里面依次执行了escapes(i)和unpackEface(i)方法，并直接将unpackEface(i)方法作为返回值。  
 
-看上去很简单。先看一下escapes(i)做了些什么吧？
+看上去很简单。先看一下escapes(i)做了些什么吧？  
 
 这里我将main方法改造成了最简单的一个方法来进行测试：  
 ```go
@@ -115,7 +115,7 @@ var dummy struct {
 	x interface{}
 }
 ```
-第一次调用了escapes(i)的方法，很明显dummy.b是false，因此，它什么都没有做，可以跳过。
+第一次调用了escapes(i)的方法，很明显dummy.b是false，因此，它什么都没有做，可以跳过。  
 `*dummy是复制品的意思，这里应该是一个克隆方法吧（猜）` 
 
 那再看一下和unpackEface(i)方法吧。  
@@ -139,21 +139,21 @@ func unpackEface(i interface{}) Value {
 e.typ就是变量的信息主体了。再继续读下去，到flag(t.Kind())  
 t.Kind()是得到变量的类型的数字编号，这里我得到的是24,即string  
 flag其实是就是uintptr的别名，这里基本就是uintptr(24)的意思  
-转了一下还是24啊。
+转了一下还是24啊。  
 然后又是ifaceIndir(t)，看注释上讲：  
 ```
 ifaceIndir reports whether t is stored indirectly in an interface value.
-ifaceIndir报告t是否直接存在interface变量之中的
+ifaceIndir报告t是否直接存在interface变量之中的  
 ```
 输出结果是true  
 ifaceIndir()方法中执行的是  
-`return t.kind&kindDirectIface == 0`
-t.kind我知道的，是24，那kindDirectIface又是什么？  
-在上面的常量定义中我看到：`kindDirectIface = 1 << 5`
-`变量数据类型(1<<5)即为1左移5位，二进制即为 0010 0000`
+`return t.kind&kindDirectIface == 0`  
+t.kind我知道的，是24，那kindDirectIface又是什么？   
+在上面的常量定义中我看到：`kindDirectIface = 1 << 5`  
+`变量数据类型(1<<5)即为1左移5位，二进制即为 0010 0000`  
 日日哦，读到这里我已经完全不知道是什么意思了，t.kind=24,kindDirectIface=32，两个值做&运算，得到的是24&32即结果是0。  
 这TM是与运算了吧，32的二进制是1000 0000  
-0010 0000
+0010 0000  
 1000 0000  
 现在我们可以温习一下与运算是什么了。  
 ```
@@ -162,7 +162,7 @@ t.kind我知道的，是24，那kindDirectIface又是什么？
 1 & 0=0
 1 & 1=1
 ```
-由此可见，结果就是0，最后0==0，返回的肯定是true了。
+由此可见，结果就是0，最后0==0，返回的肯定是true了。  
 从代码的功能上来看，这一段主要是防止越界，在value.go里面不是定义了一组常量么  
 ```go
 const (
@@ -193,12 +193,14 @@ const (
 	String
 	Struct
 	UnsafePointer
-)```
+)
+```
+
 虽然只用到了28位，估计是在go里面认为从0-32都是go的变量类型对应的数值，因此是不能超过32的。  
 既然通过了，即么代码又来到了`f |= flagIndir`这一段，又是奇怪的运算符，真是讨厌！  
 flagIndir是一个uintptr类型，而且也是一个讨厌的位运算数字 1 << 7(结果是：128)  
 `|=`即为：按位或后赋值  
-这么一弄，`f |= flagIndir`，最后f变成了152了。
+这么一弄，`f |= flagIndir`，最后f变成了152了。  
 最后，以Value结构体返回结果  
 `return Value{t, e.word, f}`
 ```go
