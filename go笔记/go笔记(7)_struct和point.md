@@ -134,12 +134,13 @@ func unpackEface(i interface{}) Value {
 	return Value{t, e.word, f}
 }
 ```
-哇，看上去第一行就好眼熟啊，这是我们的老方法了，得到变量的信息。它主要为了获取e.typ和e.word两个数据。这里还有一个警告，让我不要读e.word直到我们确认他是否是指针。（什么鬼……）  
+哇，看上去第一行就好眼熟啊，这是我们的老方法了，得到变量的信息。它主要为了获取e.typ和e.word两个数据。  
+这里还有一个警告，让我不要读e.word直到我们确认他是否是指针。（什么鬼……）  
 e.typ就是变量的信息主体了。再继续读下去，到flag(t.Kind())  
 t.Kind()是得到变量的类型的数字编号，这里我得到的是24,即string  
 flag其实是就是uintptr的别名，这里基本就是uintptr(24)的意思  
 转了一下还是24啊。
-然后又是ifaceIndir(t)，看注释上讲：
+然后又是ifaceIndir(t)，看注释上讲：  
 ```
 ifaceIndir reports whether t is stored indirectly in an interface value.
 ifaceIndir报告t是否直接存在interface变量之中的
@@ -150,3 +151,83 @@ ifaceIndir()方法中执行的是
 t.kind我知道的，是24，那kindDirectIface又是什么？  
 在上面的常量定义中我看到：`kindDirectIface = 1 << 5`
 `变量数据类型(1<<5)即为1左移5位，二进制即为 0010 0000`
+日日哦，读到这里我已经完全不知道是什么意思了，t.kind=24,kindDirectIface=32，两个值做&运算，得到的是24&32即结果是0。  
+这TM是与运算了吧，32的二进制是1000 0000  
+0010 0000
+1000 0000  
+现在我们可以温习一下与运算是什么了。  
+```
+0 & 0=0
+0 & 1=0
+1 & 0=0
+1 & 1=1
+```
+由此可见，结果就是0，最后0==0，返回的肯定是true了。
+从代码的功能上来看，这一段主要是防止越界，在value.go里面不是定义了一组常量么  
+```go
+const (
+	Invalid Kind = iota
+	Bool
+	Int
+	Int8
+	Int16
+	Int32
+	Int64
+	Uint
+	Uint8
+	Uint16
+	Uint32
+	Uint64
+	Uintptr
+	Float32
+	Float64
+	Complex64
+	Complex128
+	Array
+	Chan
+	Func
+	Interface
+	Map
+	Ptr
+	Slice
+	String
+	Struct
+	UnsafePointer
+)```
+虽然只用到了28位，估计是在go里面认为从0-32都是go的变量类型对应的数值，因此是不能超过32的。  
+既然通过了，即么代码又来到了`f |= flagIndir`这一段，又是奇怪的运算符，真是讨厌！  
+flagIndir是一个uintptr类型，而且也是一个讨厌的位运算数字 1 << 7(结果是：128)  
+`|=`即为：按位或后赋值  
+这么一弄，`f |= flagIndir`，最后f变成了152了。
+最后，以Value结构体返回结果  
+`return Value{t, e.word, f}`
+```go
+type Value struct {
+	typ *rtype
+	ptr unsafe.Pointer
+	flag
+}
+```
+
+总结一下就是，将一个变量转换成Value类型，其实就是在这个变量的内部给它追加了一个flag，其它的都没有任何变化，至于为什么要加个flag，现在我也不懂，虽然在源码里面密密麻麻地写了一大串注释，可是还是看不太懂，感觉是要对着注释机翻了。  
+```
+// flag holds metadata about the value.
+flag保持了关于变量的元数据
+// The lowest bits are flag bits:
+最低的比特是flag比特（什么鬼）
+//	- flagStickyRO: obtained via unexported not embedded field, so read-only
+//	- flagEmbedRO: obtained via unexported embedded field, so read-only
+//	- flagIndir: val holds a pointer to the data
+//	- flagAddr: v.CanAddr is true (implies flagIndir)
+//	- flagMethod: v is a method value.
+// The next five bits give the Kind of the value.
+接下来的五个比特位可以得到值的类型
+// This repeats typ.Kind() except for method values.
+这重复了typ.Kind(),除去为方法值（翻译得狗屁不通）
+// The remaining 23+ bits give a method number for method values.
+剩下的23+的比特为方法的值提供了方法数字
+// If flag.kind() != Func, code can assume that flagMethod is unset.
+如果flag.kind()不是func，代码能分派flagMethod未设置（在我的例子里，flag.kind()仍然得到的是24，即String）
+// If ifaceIndir(typ), code can assume that flagIndir is set.
+```
+算了，翻译得实在是太差了，就此打住，不丢人现眼了。  
