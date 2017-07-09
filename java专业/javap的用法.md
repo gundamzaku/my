@@ -21,12 +21,10 @@ javap常用参数
 ```go
 public class StaticResolution {
 
-    public static void sayHello(){
-        System.out.println("hello world");
-    }
-
     public static void main(String[] args){
-        StaticResolution.sayHello();
+
+        String a = "hello";
+        System.out.println(a);
     }
 }
 ```
@@ -37,16 +35,9 @@ javap -verbose StaticResolution
 result:
 
 ```java 
-Compiled from "StaticResolution.java"
-public class StaticResolution {
-  public StaticResolution();
-  public static void sayHello();
-  public static void main(java.lang.String[]);
-}
-mac:nio liudan$ javap -verbose StaticResolution
 Classfile /Users/liudan/Documents/code/nio/out/production/nio/StaticResolution.class
-  Last modified 2017-7-9; size 618 bytes
-  MD5 checksum 0596e808e357cc74a0860d6e77ac772a
+  Last modified 2017-7-9; size 586 bytes
+  MD5 checksum ce7a890b2f967cce190fa29823354e34
   Compiled from "StaticResolution.java"
 public class StaticResolution
   SourceFile: "StaticResolution.java"
@@ -54,42 +45,41 @@ public class StaticResolution
   major version: 51
   flags: ACC_PUBLIC, ACC_SUPER
 Constant pool:
-   #1 = Methodref          #7.#22         //  java/lang/Object."<init>":()V
-   #2 = Fieldref           #23.#24        //  java/lang/System.out:Ljava/io/PrintStream;
-   #3 = String             #25            //  hello world
+   #1 = Methodref          #6.#22         //  java/lang/Object."<init>":()V
+   #2 = String             #23            //  hello
+   #3 = Fieldref           #24.#25        //  java/lang/System.out:Ljava/io/PrintStream;
    #4 = Methodref          #26.#27        //  java/io/PrintStream.println:(Ljava/lang/String;)V
-   #5 = Methodref          #6.#28         //  StaticResolution.sayHello:()V
-   #6 = Class              #29            //  StaticResolution
-   #7 = Class              #30            //  java/lang/Object
-   #8 = Utf8               <init>
-   #9 = Utf8               ()V
-  #10 = Utf8               Code
-  #11 = Utf8               LineNumberTable
-  #12 = Utf8               LocalVariableTable
-  #13 = Utf8               this
-  #14 = Utf8               LStaticResolution;
-  #15 = Utf8               sayHello
-  #16 = Utf8               main
-  #17 = Utf8               ([Ljava/lang/String;)V
-  #18 = Utf8               args
-  #19 = Utf8               [Ljava/lang/String;
+   #5 = Class              #28            //  StaticResolution
+   #6 = Class              #29            //  java/lang/Object
+   #7 = Utf8               <init>
+   #8 = Utf8               ()V
+   #9 = Utf8               Code
+  #10 = Utf8               LineNumberTable
+  #11 = Utf8               LocalVariableTable
+  #12 = Utf8               this
+  #13 = Utf8               LStaticResolution;
+  #14 = Utf8               main
+  #15 = Utf8               ([Ljava/lang/String;)V
+  #16 = Utf8               args
+  #17 = Utf8               [Ljava/lang/String;
+  #18 = Utf8               a
+  #19 = Utf8               Ljava/lang/String;
   #20 = Utf8               SourceFile
   #21 = Utf8               StaticResolution.java
-  #22 = NameAndType        #8:#9          //  "<init>":()V
-  #23 = Class              #31            //  java/lang/System
-  #24 = NameAndType        #32:#33        //  out:Ljava/io/PrintStream;
-  #25 = Utf8               hello world
-  #26 = Class              #34            //  java/io/PrintStream
-  #27 = NameAndType        #35:#36        //  println:(Ljava/lang/String;)V
-  #28 = NameAndType        #15:#9         //  sayHello:()V
-  #29 = Utf8               StaticResolution
-  #30 = Utf8               java/lang/Object
-  #31 = Utf8               java/lang/System
-  #32 = Utf8               out
-  #33 = Utf8               Ljava/io/PrintStream;
-  #34 = Utf8               java/io/PrintStream
-  #35 = Utf8               println
-  #36 = Utf8               (Ljava/lang/String;)V
+  #22 = NameAndType        #7:#8          //  "<init>":()V
+  #23 = Utf8               hello
+  #24 = Class              #30            //  java/lang/System
+  #25 = NameAndType        #31:#32        //  out:Ljava/io/PrintStream;
+  #26 = Class              #33            //  java/io/PrintStream
+  #27 = NameAndType        #34:#35        //  println:(Ljava/lang/String;)V
+  #28 = Utf8               StaticResolution
+  #29 = Utf8               java/lang/Object
+  #30 = Utf8               java/lang/System
+  #31 = Utf8               out
+  #32 = Utf8               Ljava/io/PrintStream;
+  #33 = Utf8               java/io/PrintStream
+  #34 = Utf8               println
+  #35 = Utf8               (Ljava/lang/String;)V
 {
   public StaticResolution();
     flags: ACC_PUBLIC
@@ -104,29 +94,23 @@ Constant pool:
         Start  Length  Slot  Name   Signature
                0       5     0  this   LStaticResolution;
 
-  public static void sayHello();
-    flags: ACC_PUBLIC, ACC_STATIC
-    Code:
-      stack=2, locals=0, args_size=0
-         0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
-         3: ldc           #3                  // String hello world
-         5: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
-         8: return        
-      LineNumberTable:
-        line 7: 0
-        line 8: 8
-
   public static void main(java.lang.String[]);
     flags: ACC_PUBLIC, ACC_STATIC
     Code:
-      stack=0, locals=1, args_size=1
-         0: invokestatic  #5                  // Method sayHello:()V
-         3: return        
+      stack=2, locals=2, args_size=1
+         0: ldc           #2                  // String hello
+         2: astore_1      
+         3: getstatic     #3                  // Field java/lang/System.out:Ljava/io/PrintStream;
+         6: aload_1       
+         7: invokevirtual #4                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        10: return        
       LineNumberTable:
-        line 11: 0
-        line 12: 3
+        line 8: 0
+        line 9: 3
+        line 10: 10
       LocalVariableTable:
         Start  Length  Slot  Name   Signature
-               0       4     0  args   [Ljava/lang/String;
+               0      11     0  args   [Ljava/lang/String;
+               3       8     1     a   Ljava/lang/String;
 }
 ```
