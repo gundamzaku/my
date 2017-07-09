@@ -44,6 +44,7 @@ public class StaticResolution
   minor version: 0
   major version: 51
   flags: ACC_PUBLIC, ACC_SUPER
+//常量池
 Constant pool:
    #1 = Methodref          #6.#22         //  java/lang/Object."<init>":()V
    #2 = String             #23            //  hello
