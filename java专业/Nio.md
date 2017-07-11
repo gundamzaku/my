@@ -38,6 +38,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         String s = "";
         while (bytesRead!=-1){
             //System.out.println("Read "+bytesRead);
@@ -46,13 +47,18 @@ public class Main {
             decoder.decode(buf,cb,false);
             cb.flip();
 
-            for (int i = 0;cb.hasRemaining();i++){
-            //while(cb.hasRemaining()){
+            //for (int i = 0;cb.hasRemaining();i++){
+            while(cb.hasRemaining()){
                 System.out.print(cb.get());
             }
+
             //System.out.println();
-            buf.clear();
-            cb.clear();
+            //buf.clear();
+            //cb.clear();
+            //原来用的clear，中文显示不全，会有问题，主要是中文3字节和英文单字节的问题
+            //改成compact就好很多了，虽然最后还多了几个字。
+            buf.compact();
+            cb.compact();
             try {
                 bytesRead = fileChannel.read(buf);
             } catch (IOException e) {
