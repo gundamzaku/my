@@ -145,7 +145,7 @@ compact()方法将所有未读的数据拷贝到Buffer起始处。然后将posit
 <b>mark()与reset()方法</b>
 通过调用Buffer.mark()方法，可以标记Buffer中的一个特定position。之后可以通过调用Buffer.reset()方法恢复到这个position。
 
-<b>equals()与compareTo()方法<b>
+<b>equals()与compareTo()方法</b>
 
 可以使用equals()和compareTo()方法两个Buffer。  
 equals()  
