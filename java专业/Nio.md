@@ -114,10 +114,10 @@ ShortBuffer
 一般都是用ByteBuffer，不过ByteBuffer有中文乱码的问题还不太清楚怎么处理。  
 一般用`bytesRead = fileChannel.read(buf);`，看介绍还有一种为`buff.put()`的方法，只是这边一笔略过了。  
 
-*flip()方法*  
+<b>flip()方法</b>   
 flip方法将Buffer从写模式切换到读模式。调用flip()方法会将position设回0，并将limit设置成之前position的值。  
 
-*从Buffer中读取数据*  
+<b>从Buffer中读取数据</b>  
 从Buffer中读取数据有两种方式：  
 从Buffer读取数据到Channel。  
 使用get()方法从Buffer中读取数据。  
