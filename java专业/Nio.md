@@ -142,6 +142,7 @@ result:
 30
 对应上面的allocate的数量吧
 ```
+似乎是将fileChannel里的内容写到buff中去。  
 
 使用get()方法从Buffer中读取数据。  
 ```java
@@ -153,6 +154,25 @@ byte aByte = buf.get();
 Buffer.rewind()将position设回0，所以你可以重读Buffer中的所有数据。limit保持不变，仍然表示能从Buffer中读取多少个元素（byte、char等）。  
 Java NIO开始支持scatter/gather，scatter/gather用于描述从Channel中读取或者写入到Channel的操作。  
 
+DEMO  
+```java
+for(int i=0;i<1;i++){
+  charset.decode(buf);
+
+  buf.flip();
+
+  int j=0;
+  while (buf.hasRemaining()) {
+    j++;
+    System.out.print((char)buf.get());
+  }
+  System.out.println("");
+  buf.rewind();
+  while (buf.hasRemaining()) {
+    System.out.print((char)buf.get());
+  }
+}
+```
 <b>clear()与compact()方法</b>  
 一旦读完Buffer中的数据，需要让Buffer准备好再次被写入。可以通过clear()或compact()方法来完成。  
 如果调用的是clear()方法，position将被设回0，limit被设置成 capacity的值。换句话说，Buffer 被清空了。Buffer中的数据并未清除，只是这些标记告诉我们可以从哪里开始往Buffer里写数据。  
@@ -162,6 +182,21 @@ compact()方法将所有未读的数据拷贝到Buffer起始处。然后将posit
 
 <b>mark()与reset()方法</b>  
 通过调用Buffer.mark()方法，可以标记Buffer中的一个特定position。之后可以通过调用Buffer.reset()方法恢复到这个position。
+
+DEMO  
+```java
+int j=0;
+while (buf.hasRemaining()) {
+  j++;
+  if(j ==5)buf.mark();
+  System.out.print((char)buf.get());
+}
+System.out.println("");
+buf.reset();
+while (buf.hasRemaining()) {
+  System.out.print((char)buf.get());
+}
+```
 
 <b>equals()与compareTo()方法</b>
 
