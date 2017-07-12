@@ -128,13 +128,26 @@ flip方法将Buffer从写模式切换到读模式。调用flip()方法会将posi
 从Buffer读取数据到Channel。  
 ```java
 int bytesWritten = inChannel.write(buf);
-暂时不明。
+
+//USE
+int bytesWritten = 0;
+try {
+   bytesWritten = fileChannel.write(buf);
+} catch (IOException e) {
+   e.printStackTrace();
+}
+System.out.println(bytesWritten);
+
+result:
+30
+对应上面的allocate的数量吧
 ```
+
 使用get()方法从Buffer中读取数据。  
 ```java
 byte aByte = buf.get();
 ```
-第二种方式的代码已经在上面实现过。
+第二种方式的代码已经在上面实现过。  
 
 <b>rewind()方法</b>  
 Buffer.rewind()将position设回0，所以你可以重读Buffer中的所有数据。limit保持不变，仍然表示能从Buffer中读取多少个元素（byte、char等）。  
