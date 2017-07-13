@@ -229,6 +229,44 @@ channel.read(bufferArray);
 
 Scattering Reads在移动下一个buffer前，必须填满当前的buffer，这也意味着它不适用于动态消息。换句话说，如果存在消息头和消息体，消息头必须完成填充（例如 128byte），Scattering Reads才能正常工作。
 
+代码段：  
+```java
+        ByteBuffer buf = ByteBuffer.allocate(30);
+        ByteBuffer bufCp = ByteBuffer.allocate(60);
+        ByteBuffer[] bufferArray = { buf, bufCp };
+        /*
+        int bytesWritten = 0;
+        try {
+            bytesWritten = fileChannel.write(buf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        long bytesRead = 0;
+        try {
+            bytesRead = fileChannel.read(bufferArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(bytesRead);
+
+
+        for(int i=0;i<1;i++){
+
+            for(int j = 0;j<bufferArray.length;j++){
+                charset.decode(bufferArray[j]);
+                bufferArray[j].flip();
+
+                while (bufferArray[j].hasRemaining()) {
+                    System.out.print((char)bufferArray[j].get());
+                }
+
+            }
+            System.out.println("");
+            //buf.compact();
+        }
+```
+
 ### Gathering Writes
 
 Gathering Writes是指数据从多个buffer写入到同一个channel。
