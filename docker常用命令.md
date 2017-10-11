@@ -1,4 +1,11 @@
-#### 删除镜像  
+#### 启动docker服务
+service docker start  
+
+#### 查看进程  
+docker ps  
+docker ps -a    
+
+#### 删除镜像  
 docker rmi f5bcc57eac41  
 
 #### 进入  
