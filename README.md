@@ -18,8 +18,8 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
  
 * 项目管理工作，对项目进度、质量的管理，项目工作的拆解（WBS），曾带领过5-12人的团队进行项目开发。  
 * 技术难题的攻克，基于高流量项目的服务架构。  
-* 主职PHP开发工作，Php框架的应用。  
-* 熟悉LNMP的应用结构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。    
+* 主职Php开发工作，Php框架的应用。  
+* 熟悉LNMP的应用架构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。    
 * 缓存技术的应用（Redis，memcache）  
 * 数据库的设计以及优化（Mysql主从布置，索引优化，结构设计）  
 * 熟悉Javascript（JQuery，Zepto，Rectact），了解CSS样式，HTML结构。  
