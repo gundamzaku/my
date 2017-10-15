@@ -24,7 +24,7 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 * 熟悉Javascript（JQuery，Zepto，Rectact），基于此的html5开发。
 * 了解CSS样式，HTML结构。  
 * 对Java语言有较深入的研究学习。  
-* 基于Java的JSP开发，目前在看spring框架的内容。  
+* 基于Java的WEB开发，目前在看spring框架的内容。  
 * 基于Java的Android移动应用的开发。  
 * 对Python语言有一段时期的学习。  
 * 目前主要精力放在Golang语言和算法的研究上面。  
