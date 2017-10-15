@@ -44,19 +44,19 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 
 #### 主要项目  
 
-* `微购商城`
+* `微购商城`  
 基于线下导购服务与在线购物的电商类移动端平台。卖点在于手机/微信用户与导购服务员之间的互动和分享。    
 负责架构方面的工作，包括WEB开发、基于微信的接口开发、与手机端（Android和Ios）交互的后端开发以及对应的Android和Ios的App开发。  
 项目上线后约有几百家商户在平台上开通应用。  
 
-* `全民分销商城`
+* `全民分销商城`  
 基于移动端以传销形式的推广类在线购物平台。主要的内容是由客户发展下家，下家进行店铺的推广并得到提成，上线后约有近万家客户在该平台上开通应用。  
 
-* `导购聊天系统`
+* `导购聊天系统`  
 早期用nodejs的soket.io框架写过一个基于web socket的聊天系统，后来改用到第三方的系统对接上去了。
 
 #### 开发技术
-Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（Jquery，Zepto，React），Redis,Mongodb等  
+Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（Jquery，Zepto，React），Redis，Mongodb等  
 框架有YII，laravel，socket.io等
 
 ```
