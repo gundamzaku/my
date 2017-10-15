@@ -90,7 +90,7 @@ Php，Python，Android，Mysql，Linux，Javascript（Jquery，原生开发）�
 Php，Java，Mysql，Linux，Javascript（Jquery，原生开发），Flash（ActionScript）等  
 
 ```
-2006.05-2011.08 	上海久之游信息技术有限公司 
+2006.05-2011.08 上海久之游信息技术有限公司 
 ```
 任职于<b>技术经理</b>  
 从事产品开发和技术运营、维护等工作，主要负责Php方面的商城等网站开发。  
