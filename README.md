@@ -11,7 +11,6 @@ github:<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</a>
 
 ## 教育经历  
 `2000-2003`，`专科`，`上海第二工业大学`—`计算机应用`  
-
 `2013-2016`，`本科`，`华东师范大学`—`汉语言文学`
 
 ## 工作经历  
@@ -21,7 +20,7 @@ github:<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</a>
 ```
 2015.08-2017.08 	上海商派网络科技有限公司 
 ```
-任职<b>高级研发经理</b>  
+任职<b>高级研发经理</b>  
 负责公司成立的新部门的技术架构和部门管理工作，负责约7人的技术研发团队leader，搭建新的零售电子商务平台。  
 统筹包括网站前后端开发、Ios开发、安卓开发的工作。并参与到项目需求的评审和决策之中。  
 同时，也维护公司CRM线和老电子商务平台（Eshop，全民分销）等项目。并在部分的业务对接上，负责与外界、与公司其它部门进行沟通和交涉。  
@@ -30,9 +29,11 @@ github:<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</a>
 * 微购商城：基于线下导购服务与线上购物的移动端平台。  
 * 全民分销商城：基于移动端以传销形式的推广购物平台。
 * 导购聊天系统：
+* 分布式架构  
 
 #### 开发技术
-Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（Jquery，Zepto，React）等  
+Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（Jquery，Zepto，React），Redis,Mongodb等  
+框架有YII，laravel，socket.io等
 
 ```
 2014.02-2015.08 	上海游衷文化传媒有限公司 
