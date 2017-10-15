@@ -14,12 +14,28 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 `2000-2003`，`专科`，`上海第二工业大学`—`计算机应用`  
 `2013-2016`，`本科`，`华东师范大学`—`汉语言文学`
 
-## 工作经历  
+## 自我评价
+ 
+* 主职PHP开发工作。  
+* 熟悉LNMP的应用结构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。  
+* 服务器的部署  
+* 缓存技术的应用（Redis，memcache）  
+* 数据库的设计以及优化（Mysql主从布置，索引优化，结构设计）  
+* 熟悉Javascript（JQuery，Zepto，Rectact），基于此的html5开发。
+* 了解CSS样式，HTML结构。  
+* 对Java语言有较深入的研究学习。  
+* 基于Java的JSP开发，目前在看spring框架的内容。  
+* 基于Java的Android移动应用的开发。  
+* 对Python语言有一段时期的学习。  
+* 目前主要精力放在Golang语言和算法的研究上面。  
+* 分布式开发的微架构
+
+## 工作经历  
 
 2003年出道，先后任职六家单位。
 
 ```
-2015.08-2017.08 	上海商派网络科技有限公司 
+2015.08-2017.08 上海商派网络科技有限公司 
 ```
 任职<b>高级研发经理</b>  
 负责公司成立的新部门的技术架构和部门管理工作，负责约7人的技术研发团队leader，搭建新的零售电子商务平台。  
@@ -37,7 +53,7 @@ Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（
 框架有YII，laravel，socket.io等
 
 ```
-2014.02-2015.08 	上海游衷文化传媒有限公司 
+2014.02-2015.08 上海游衷文化传媒有限公司 
 ```
 创业，技术合伙人  
 
@@ -57,7 +73,7 @@ Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（
 Php，Python，Android，Mysql，Linux，Javascript（Jquery，原生开发）等  
 
 ```
-2011.08-2014.02 	上海博朔网络公司 
+2011.08-2014.02 上海博朔网络公司 
 ```
 负责网站平台的开发工作。包括（久玩平台、海外慧达游戏平台[基于FaceBook的海外业务]，与其它公司的海外平台合作）  
 
@@ -98,7 +114,7 @@ Php，Java，Mysql，Linux，Javascript（Jquery，原生开发），Flash（Act
 Php，Java，Mysql，Linux，Javascript（Jquery，原生开发）等  
 
 ```
-2004.09-2006.04 	上海智冠公司 
+2004.09-2006.04 上海智冠公司 
 ```
 主要负责项目：  
 57JOY网络虚拟货币交易平台网站  
@@ -108,7 +124,7 @@ Php，Java，Mysql，Linux，Javascript（Jquery，原生开发）等  
 公司服务器日常维护  
 
 ```
-2002.10-2004.09 	上海道安信息有限公司 
+2002.10-2004.09 上海道安信息有限公司 
 ```
 主要负责项目：  
 道安企业信息管理平台开发  
@@ -116,22 +132,3 @@ OA系统和信息发布系统
 计划生育委员会医疗信息管理系统  
 
 Php,Mysql,Linux
-
-
-## 自我评价
- 
-主职PHP开发工作。  
-熟悉LNMP的应用结构（Linux+Nginx+Mysql+Php）  
-以及在此应用上的各类技术点。  
-服务器的部署  
-缓存技术的应用（Redis）  
-数据库的设计以及优化（Mysql主从布置）  
-对Web开发颇有经验  
-熟悉Javascript（目前主要应用JQuery框架），基于此的html5开发。  
-了解CSS样式，HTML结构。  
-对Java语言有较深入的研究学习。  
-基于Java的JSP开发，目前在看spring框架的内容。  
-基于Java的Android移动应用的开发。  
-对Python语言有较深入的研究学习。  
-目前已基本将后端的执行脚本渐渐转移由Python语言进行开发，而取代Php。  
-目前主要精力放在Golang语言和算法的研究上面。  
