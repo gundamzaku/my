@@ -1,4 +1,5 @@
 # 刘丹
+***
 1981年12月出生  
 最后任职于上海商派网络公司，担任高级研发经理一职
 
@@ -7,7 +8,7 @@
 QQ号：4845327  
 微信号：dan2001go  
 邮箱：gundamzaku@163.com  
-github:<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</a>
+github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</a>
 
 ## 教育经历  
 `2000-2003`，`专科`，`上海第二工业大学`—`计算机应用`  
