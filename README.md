@@ -12,19 +12,19 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 
 ## 自我评价
  
-* 项目管理工作，对项目进度、质量的把控，熟悉九大管理体系，并根据实际情况项目工作的拆解（WBS）。
+* 项目管理工作，对项目进度、质量的把控，熟悉九大管理体系，并根据实际情况项目工作的拆解（<b>WBS</b>）。
 * 曾带领过5-12人的团队进行项目开发，对员工的任务分配，技能提升，以及技术的传授和人文关怀可以做到酌情合理。  
 * 技术难题的攻克，基于高流量项目的分布式服务架构，基于高并发的数据安全。最好的项目也做到了近千万级别的流量。
-* 主职Php开发工作，Php框架的应用，Php扩展的开发，目前老项目用Php5.6，新项目用Php7（新特性改进太大）。  
-* 熟悉LNMP的应用架构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术要点。  
-* 缓存技术的应用（Redis，Memcache）  
-* 数据库的设计以及优化（Mysql主从布置，索引优化，结构设计）  
-* 熟悉Javascript（Jquery，Zepto，React），Webpack的打包模式，了解Css样式，早期的时候我是用纯原生的js进行开发的，现在因为兴趣了前端的职位，在管理过程中，主要工作任务由前端人员负责，我进行一些指导。  
-* Java的Web开发（Spring框架+Mybatis持久层框架）。  
-* Android移动应用的开发，了解并开发过应用。  
-* Python语言，开发过后端数据爬虫的项目（基于Python3）。  
-* 目前主要精力放在Golang语言和算法的研究上面。  
-* 新技术的研究（Elasticsearch，Swoole，Rabbitmq，Zookeeper，Etcd，Grpc，Thrift等）
+* 主职<b>Php</b>开发工作，<b>Php</b>框架的应用，<b>Php</b>扩展的开发，目前老项目用<b>Php5.6</b>，新项目用<b>Php7</b>（新特性改进太大）。  
+* 熟悉LNMP的应用架构（<b>Linux</b>+<b>Nginx</b>+<b>Mysql</b>+<b>Php</b>）以及在此应用上的各类技术要点。  
+* 缓存技术的应用（<b>Redis</b>，<b>Memcache</b>）  
+* 数据库的设计以及优化（<b>Mysql</b>主从布置，索引优化，结构设计）  
+* 熟悉<b>Javascript</b>（<b>Jquery</b>，<b>Zepto</b>，<b>React</b>），<b>Webpack</b>的打包模式，了解Css样式，早期的时候我是用纯原生的js进行开发的，现在因为兴趣了前端的职位，在管理过程中，主要工作任务由前端人员负责，我进行一些指导。  
+* <b>Java</b>的<b>Web</b>开发（<b>Spring</b>框架+<b>Mybatis</b>持久层框架）。  
+* <b>Android</b>移动应用的开发，了解并开发过应用。  
+* <b>Python</b>语言，开发过后端数据爬虫的项目（基于<b>Python3</b>）。  
+* 目前主要精力放在<b>Golang</b>语言和算法的研究上面。  
+* 新技术的研究（<b>Docker</b>，<b>Elasticsearch</b>，<b>Swoole</b>，<b>Rabbitmq</b>，<b>Zookeeper</b>，<b>Etcd</b>，<b>Grpc</b>，<b>Thrift</b>等）
 
 ## 工作经历  
 
@@ -80,7 +80,8 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 ```
 2011.08-2014.02 上海博朔网络公司 
 ```
-任职<b>研发经理</b>  
+任职<b>研发经理</b> 
+
 负责网站平台的开发工作。包括（久玩平台、海外慧达游戏平台[基于FaceBook的海外业务]，与其它公司的海外平台合作）  
 
 侧重于网站-游戏的充值、注册、消费行为与数据行为分析业务  
@@ -103,11 +104,16 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 ```
 2006.05-2011.08 上海久之游信息技术有限公司 
 ```
-任职<b>技术经理</b>  
+任职<b>技术经理</b>
+
 从事产品开发和技术运营、维护等工作，主要负责Php方面的商城等网站开发。  
+
 独立完成了若干个公司旗下网站与相关游戏的活动、相册等业务。  
+
 进行了一次大型项目开发（久游网客服平台开发）后转入电子商务平台的开发工作。  
+
 后负责劲舞团商城、魔力宝贝二商城、Esales在线充值、帐户中心、充值中心等重要项目。  
+
 此外对公司客服接口，处理大量游戏相关的运营工作，包括用户购买导常、充值异常或是游戏异常。还有数据统计等若干大量的相关事务。承受了一定的压力和强度。 
 在公司业务最高峰时期曾带领一个约12人的中型团队，进行管理工作和团队协调。  
 
