@@ -16,16 +16,17 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 
 ## 自我评价
  
-* 项目管理工作，对项目进度、质量的管理，项目工作的拆解（WBS），曾带领过5-12人的团队进行项目开发。  
-* 技术难题的攻克，基于高流量项目的分布式服务架构。  
-* 主职Php开发工作，Php框架的应用，Php扩展的开发。  
-* 熟悉LNMP的应用架构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。    
+* 项目管理工作，对项目进度、质量的把控，熟悉九大管理体系，并根据实际情况项目工作的拆解（WBS）。
+* 曾带领过5-12人的团队进行项目开发，对员工的任务分配，技能提升，以及技术的传授和人文关怀可以做到酌情合理。  
+* 技术难题的攻克，基于高流量项目的分布式服务架构，基于高并发的数据安全。最好的项目也做到了近千万级别的流量。  
+* 主职Php开发工作，Php框架的应用，Php扩展的开发，目前主要老项目用Php5.6，新项目用Php7（新特性改进太大）。  
+* 熟悉LNMP的应用架构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。  
 * 缓存技术的应用（Redis，memcache）  
 * 数据库的设计以及优化（Mysql主从布置，索引优化，结构设计）  
-* 熟悉Javascript（JQuery，Zepto，React），了解CSS样式，HTML结构。  
-* Java的WEB开发（Spring框架+Mybatis）。  
-* Java的Android移动应用的开发。  
-* 对Python语言有一段时期的学习。  
+* 熟悉Javascript（JQuery，Zepto，React），webpack的打包模式，了解CSS样式，早期的时候我是用纯原生的js进行开发的，现在因为兴趣了前端的职位，在管理过程中，主要工作任务由前端人员负责，我进行一些指导。  
+* Java的WEB开发（Spring框架+Mybatis持久层框架）。  
+* Java的Android移动应用的开发，了解并开发过应用。  
+* Python语言，开发过后端数据爬虫的项目（基于Python3）。  
 * 目前主要精力放在Golang语言和算法的研究上面。  
 * 新技术的研究（Elasticsearch，Swoole，Rabbitmq，zookeeper，Etcd，gRpc，thrift等）
 
