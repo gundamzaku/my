@@ -46,7 +46,6 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 * 微购商城：基于线下导购服务与线上购物的移动端平台。  
 * 全民分销商城：基于移动端以传销形式的推广购物平台。
 * 导购聊天系统：
-* 分布式架构  
 
 #### 开发技术
 Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（Jquery，Zepto，React），Redis,Mongodb等  
@@ -55,7 +54,7 @@ Php，Go，Android，Ios（Object C），Mysql，Linux，Node.js，Javascript（
 ```
 2014.02-2015.08 上海游衷文化传媒有限公司 
 ```
-创业，技术合伙人  
+创业  
 
 负责公司整个网站的构架、开发工作。  
 包括：主站、子站、部门后台等大小业务的各类业务。  
@@ -75,6 +74,7 @@ Php，Python，Android，Mysql，Linux，Javascript（Jquery，原生开发）�
 ```
 2011.08-2014.02 上海博朔网络公司 
 ```
+任职<b>研发经理</b>  
 负责网站平台的开发工作。包括（久玩平台、海外慧达游戏平台[基于FaceBook的海外业务]，与其它公司的海外平台合作）  
 
 侧重于网站-游戏的充值、注册、消费行为与数据行为分析业务  
@@ -92,7 +92,8 @@ Php，Java，Mysql，Linux，Javascript（Jquery，原生开发），Flash（Act
 ```
 2006.05-2011.08 	上海久之游信息技术有限公司 
 ```
-任职于技术研发部门，从事产品开发和技术运营、维护等工作，主要负责PHP方面的商城等网站开发工作。  
+任职于<b>技术经理</b>  
+从事产品开发和技术运营、维护等工作，主要负责Php方面的商城等网站开发。  
 独立完成了若干个公司旗下网站与相关游戏的活动、相册等业务。  
 进行了一次大型项目开发（久游网客服平台开发）后转入电子商务平台的开发工作。  
 独自负责了久游网周边零售商城的开发。  
@@ -123,6 +124,8 @@ Php，Java，Mysql，Linux，Javascript（Jquery，原生开发）等  
 公司杂志文、美编工作日程，截稿流转系统  
 公司服务器日常维护  
 
+#### 略
+
 ```
 2002.10-2004.09 上海道安信息有限公司 
 ```
@@ -131,4 +134,4 @@ Php，Java，Mysql，Linux，Javascript（Jquery，原生开发）等  
 OA系统和信息发布系统  
 计划生育委员会医疗信息管理系统  
 
-Php,Mysql,Linux
+#### 略
