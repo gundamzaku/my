@@ -22,7 +22,7 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 * 熟悉LNMP的应用架构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。    
 * 缓存技术的应用（Redis，memcache）  
 * 数据库的设计以及优化（Mysql主从布置，索引优化，结构设计）  
-* 熟悉Javascript（JQuery，Zepto，Rectact），了解CSS样式，HTML结构。  
+* 熟悉Javascript（JQuery，Zepto，React），了解CSS样式，HTML结构。  
 * Java的WEB开发（Spring框架+Mybatis）。  
 * Java的Android移动应用的开发。  
 * 对Python语言有一段时期的学习。  
