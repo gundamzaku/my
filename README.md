@@ -16,19 +16,18 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 
 ## 自我评价
  
-* 主职PHP开发工作。  
-* 熟悉LNMP的应用结构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。  
-* 服务器的部署  
+* 项目管理工作，对项目进度、质量的管理，项目工作的拆解（WBS），曾带领过5-12人的团队进行项目开发。  
+* 技术难题的攻克，基于高流量项目的服务架构。  
+* 主职PHP开发工作，Php框架的应用。  
+* 熟悉LNMP的应用结构（Linux+Nginx+Mysql+Php）以及在此应用上的各类技术点。    
 * 缓存技术的应用（Redis，memcache）  
 * 数据库的设计以及优化（Mysql主从布置，索引优化，结构设计）  
-* 熟悉Javascript（JQuery，Zepto，Rectact），基于此的html5开发。
-* 了解CSS样式，HTML结构。  
-* 对Java语言有较深入的研究学习。  
-* 基于Java的WEB开发，目前在看Spring框架的内容。  
-* 基于Java的Android移动应用的开发。  
+* 熟悉Javascript（JQuery，Zepto，Rectact），了解CSS样式，HTML结构。  
+* Java的WEB开发（Spring框架+Mybatis）。  
+* Java的Android移动应用的开发。  
 * 对Python语言有一段时期的学习。  
 * 目前主要精力放在Golang语言和算法的研究上面。  
-* 分布式开发的微架构
+* 分布式开发的微架构  
 
 ## 工作经历  
 
