@@ -17,7 +17,7 @@ github：<a href="https://github.com/gundamzaku">https://github.com/gundamzaku</
 * 熟悉LNMP的应用架构（**Linux**+**Nginx**+**MySQL**+**PHP**）以及在此应用上的各类技术要点。  
 * 缓存技术的应用（**Redis**，**Memcached**）  
 * 数据库的设计以及优化（**MySQL**主从布置，索引优化，结构设计）  
-* 熟悉**Javascript**（**jQuery**，**Zepto**，**React**），**Webpack**的打包方式，了解**CSS**样式，早期的时候我是用纯原生的JS进行开发的，现在因为兴趣了前端的职位，在管理过程中，主要工作任务由前端人员负责，我进行一些指导。  
+* 熟悉**Javascript**（**jQuery**，**Zepto**，**React**），**Webpack**的打包方式，了解**CSS**样式，早期的时候我是用纯原生的JS进行开发的，现在因为兴起了前端的职位，在管理过程中，主要工作任务由前端人员负责，我进行一些指导。  
 * **Java**的Web开发（**Spring MVC**框架+**Mybatis**持久层框架的运用）。  
 * **Android**移动应用的开发，了解并开发过应用。  
 * **Python**语言，开发过后端数据爬虫的项目（基于**Python3**）。  
