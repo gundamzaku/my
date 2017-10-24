@@ -5,7 +5,7 @@ The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key 
 
 访问的报404：  
 nginx里面加上
-`
+```
 server
 {
     root  /data/httpd/laravel/public;
@@ -14,4 +14,4 @@ server
         try_files $uri $uri/ /index.php?$query_string;
     }  
 }
-`
+```
