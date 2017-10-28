@@ -81,13 +81,15 @@ public function instance($abstract, $instance)
 ```php
 protected function rebound($abstract)
 {
-    $instance = $this->make($abstract);
+    //第一次执行的时候查到了request的参数。
+    $instance = $this->make($abstract);
 
     foreach ($this->getReboundCallbacks($abstract) as $callback) {
         call_user_func($callback, $this, $instance);
     }
 }
 ```
+其中的`$this->reboundCallbacks`参数还不明确。  
 
 ```php
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
