@@ -79,6 +79,17 @@ public function instance($abstract, $instance)
 代码中有些意义不明确，比如检查到有绑定就去重新绑定？  
 
 ```php
+protected function rebound($abstract)
+{
+    $instance = $this->make($abstract);
+
+    foreach ($this->getReboundCallbacks($abstract) as $callback) {
+        call_user_func($callback, $this, $instance);
+    }
+}
+```
+
+```php
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 ```
 
