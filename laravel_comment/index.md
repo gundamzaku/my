@@ -75,7 +75,8 @@ public function instance($abstract, $instance)
     }
 }
 ```
-里面有两个比较重要的数组：`$this->instances`和`$this->aliases`  
+里面有两个比较重要的数组：`$this->instances`和`$this->aliases`  
+代码中有些意义不明确，比如检查到有绑定就去重新绑定？  
 
 ```php
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
