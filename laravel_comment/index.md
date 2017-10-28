@@ -29,6 +29,52 @@ public function __construct($basePath = null)
 }
 ```
 
+```php
+public function setBasePath($basePath)
+{
+    $this->basePath = rtrim($basePath, '\/');
+    $this->bindPathsInContainer();//注意此方法
+
+    return $this;
+}
+```
+
+```php
+//内容非常多,应该是所有的配置文件了。
+protected function bindPathsInContainer()
+{
+    $this->instance('path', $this->path());///data/httpd/laravel/app
+    $this->instance('path.base', $this->basePath());///data/httpd/laravel
+    $this->instance('path.lang', $this->langPath());///data/httpd/laravel/resources/lang
+    $this->instance('path.config', $this->configPath());///data/httpd/laravel/config
+    $this->instance('path.public', $this->publicPath());///data/httpd/laravel/public
+    $this->instance('path.storage', $this->storagePath());///data/httpd/laravel/storage
+    $this->instance('path.database', $this->databasePath());///data/httpd/laravel/database
+    $this->instance('path.resources', $this->resourcePath());///data/httpd/laravel/resources
+    $this->instance('path.bootstrap', $this->bootstrapPath());///data/httpd/laravel/bootstrap
+}
+```
+`$this->instance`的含义  
+
+```php
+public function instance($abstract, $instance)
+{
+    $this->removeAbstractAlias($abstract);//先移除实例，这个没什么好说的。
+
+    $isBound = $this->bound($abstract);//检测是否被绑定？上面不是移除了么。
+
+    unset($this->aliases[$abstract]);
+
+    // We'll check to determine if this type has been bound before, and if it has
+    // we will fire the rebound callbacks registered with the container and it
+    // can be updated with consuming classes that have gotten resolved here.
+    $this->instances[$abstract] = $instance;//并成实例数组
+
+    if ($isBound) {
+        $this->rebound($abstract);
+    }
+}
+```
 
 ```php
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
