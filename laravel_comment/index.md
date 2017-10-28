@@ -59,7 +59,7 @@ protected function bindPathsInContainer()
 ```php
 public function instance($abstract, $instance)
 {
-    $this->removeAbstractAlias($abstract);//先移除实例，这个没什么好说的。
+    $this->removeAbstractAlias($abstract);//先移除实例，这个没什么好说的。注意这里是移除$this->abstractAliases[]里面的数据
 
     $isBound = $this->bound($abstract);//检测是否被绑定？上面不是移除了么。
 
@@ -70,11 +70,12 @@ public function instance($abstract, $instance)
     // can be updated with consuming classes that have gotten resolved here.
     $this->instances[$abstract] = $instance;//并成实例数组
 
-    if ($isBound) {
-        $this->rebound($abstract);
+    if ($isBound) {//如果绑定存在的话进行重绑定？
+        $this->rebound($abstract);
     }
 }
 ```
+里面有两个比较重要的数组：`$this->instances`和`$this->aliases`  
 
 ```php
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
