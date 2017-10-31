@@ -83,8 +83,8 @@ protected function rebound($abstract)
 {
     //第一次执行的时候查到了request的参数。
     $instance = $this->make($abstract);
-
-    foreach ($this->getReboundCallbacks($abstract) as $callback) {
+    //这里的callback是一个对象。
+    foreach ($this->getReboundCallbacks($abstract) as $callback) {
         call_user_func($callback, $this, $instance);
     }
 }
