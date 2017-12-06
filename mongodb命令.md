@@ -10,5 +10,8 @@ use xxdb
 ## 查找数据
 db.member_platform_relations.find({"member_id" : "81"})
 
+## 查找数据（单条）
+db.member_platform_relations.find().limit(1)
+
 ## 移除数据
 db.member_platform_relations.remove({"member_id" : "106"})
