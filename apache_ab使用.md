@@ -30,11 +30,11 @@
 
 ab -n1000 -c10 http://www.baidu.com/index.html  
 
-ab性能指标
+**ab性能指标**
 
 在进行性能测试过程中有几个指标比较重要：
 
-1、吞吐率（Requests per second）
+`1、吞吐率（Requests per second）`
 
 服务器并发处理能力的量化描述，单位是reqs/s，指的是在某个并发用户数下单位时间内处理的请求数。某个并发用户数下单位时间内能处理的最大请求数，称之为最大吞吐率。
 
@@ -50,21 +50,21 @@ Request per second=Complete requests/Time taken for tests
 
 必须要说明的是，这个数值表示当前机器的整体性能，值越大越好。
 
-2、并发连接数（The number of concurrent connections）
+`2、并发连接数（The number of concurrent connections）`
 
 并发连接数指的是某个时刻服务器所接受的请求数目，简单的讲，就是一个会话。
 
-3、并发用户数（Concurrency Level）
+`3、并发用户数（Concurrency Level）`
 
 要注意区分这个概念和并发连接数之间的区别，一个用户可能同时会产生多个会话，也即连接数。在HTTP/1.1下，IE7支持两个并发连接，IE8支持6个并发连接，FireFox3支持4个并发连接，所以相应的，我们的并发用户数就得除以这个基数。
 
-4、用户平均请求等待时间（Time per request）
+`4、用户平均请求等待时间（Time per request）`
 
 计算公式：处理完成所有请求数所花费的时间/（总请求数/并发用户数），即：
 
 Time per request=Time taken for tests/（Complete requests/Concurrency Level）
 
-5、服务器平均请求等待时间（Time per request:across all concurrent requests）
+`5、服务器平均请求等待时间（Time per request:across all concurrent requests）`
 
 计算公式：处理完成所有请求数所花费的时间/总请求数，即：
 
@@ -78,17 +78,23 @@ Time per request/Concurrency Level
 
 **常用：**  
 
-Concurrency Level    并发数多少，等于-c后面的数值
+`Concurrency Level`    
+并发数多少，等于-c后面的数值
 
-Time taken for tests    测试总耗时
+`Time taken for tests`  
+测试总耗时
 
-Complete requests    成功收到返回的数目
+`Complete requests`  
+成功收到返回的数目
 
-Failed requests    请求失败数目，可能因为网络连接，异常，请求数据长度等等
+`Failed requests`  
+请求失败数目，可能因为网络连接，异常，请求数据长度等等
 
-Non-2xx responses    表示返回的HTTP status code不是2xx的数目（比如404,401,500...），如果都是2xx，这个指标不显示在结果里面
+`Non-2xx responses`  
+表示返回的HTTP status code不是2xx的数目（比如404,401,500...），如果都是2xx，这个指标不显示在结果里面
 
-Requests per second    每秒请求数，等于总请求数/测试总耗时
+`Requests per second`  
+每秒请求数，等于总请求数/测试总耗时
 
-Time per request    每一个请求平均花费时间。第一个Time per request等于concurrency * timetaken * 1000 / done，第二个Time per request（mean, across all concurrency requests）等于timetaken * 1000 / done，第一个可以理解为用户平均请求等待时间，第二可以理解为服务器平均请求等待时间
-
+`Time per request`  
+每一个请求平均花费时间。第一个Time per request等于concurrency * timetaken * 1000 / done，第二个Time per request（mean, across all concurrency requests）等于timetaken * 1000 / done，第一个可以理解为用户平均请求等待时间，第二可以理解为服务器平均请求等待时间
