@@ -1,4 +1,5 @@
 参数说明： -n 请求数量， -c 并发数量  
+
 -n在测试会话中所执行的请求个数。默认时，仅执行一个请求。  
 
 -c一次产生的请求个数。默认是一次一个。  
@@ -75,7 +76,8 @@ Time taken for/testsComplete requests
 
 Time per request/Concurrency Level  
 
-常用：
+**常用：**  
+
 Concurrency Level    并发数多少，等于-c后面的数值
 
 Time taken for tests    测试总耗时
