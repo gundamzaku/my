@@ -6,6 +6,26 @@
 -t测试所进行的最大秒数。其内部隐含值是-n 50000，它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。  
 
 -p包含了需要POST的数据的文件。  
+-p postdata.json
+```
+{
+  "className": "User",
+  "methodName": "addUser",
+  "paramSet": {
+    "user_01": {
+      "a1": ["张yi",1471337924226],
+      "a2": "马山"
+    },
+    "user_02": "21",
+    "user_03": "男"
+  }
+}
+```
+
+-T 设置请求头中的Content-type（针对POST/PUT），比如：application/x-www-form-urlencoded。默认是text/plain。
+-T application/json
+
+-w 将测试结果打印到HTML表格中。
 
 ab -n1000 -c10 http://www.baidu.com/index.html  
 
@@ -53,4 +73,20 @@ Time taken for/testsComplete requests
 
 同时，它也等于用户平均请求等待时间/并发用户数，即
 
-Time per request/Concurrency Level
+Time per request/Concurrency Level  
+
+常用：
+Concurrency Level    并发数多少，等于-c后面的数值
+
+Time taken for tests    测试总耗时
+
+Complete requests    成功收到返回的数目
+
+Failed requests    请求失败数目，可能因为网络连接，异常，请求数据长度等等
+
+Non-2xx responses    表示返回的HTTP status code不是2xx的数目（比如404,401,500...），如果都是2xx，这个指标不显示在结果里面
+
+Requests per second    每秒请求数，等于总请求数/测试总耗时
+
+Time per request    每一个请求平均花费时间。第一个Time per request等于concurrency * timetaken * 1000 / done，第二个Time per request（mean, across all concurrency requests）等于timetaken * 1000 / done，第一个可以理解为用户平均请求等待时间，第二可以理解为服务器平均请求等待时间
+
