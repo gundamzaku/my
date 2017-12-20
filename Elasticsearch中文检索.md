@@ -32,3 +32,5 @@ $ curl -X PUT 'localhost:9200/accounts' -d '
   }
 }'
 ```
+
+上面代码中，`analyzer`是字段文本的分词器，`search_analyzer`是搜索词的分词器。`ik_max_word`分词器是插件ik提供的，可以对文本进行最大数量的分词。
