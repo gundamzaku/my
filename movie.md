@@ -2,3 +2,23 @@ http://www.zimuzu.tv/resource/34521 怪奇物语
 http://www.zimuzu.tv/resource/32235 闪电侠  
 http://www.zimuzu.tv/resource/35733 陆王  
 http://zmz001.com/qaTMD4  星际之门
+http://www.zimuzu.tv/resource/35748 民众之敌  
+http://www.zimuzu.tv/resource/35492 奥尔维亚  
+http://www.zimuzu.tv/resource/11015 恶鬼凶灵  
+http://www.zimuzu.tv/resource/35736 监狱公主
+http://www.zimuzu.tv/resource/35691 太太请小心轻放  
+http://www.zimuzu.tv/resource/32725 僵尸国度4
+http://www.zimuzu.tv/resource/34667 驱魔人  
+http://www.zimuzu.tv/resource/32097 哥谭  
+http://www.zimuzu.tv/resource/11057 行尸走肉  
+http://www.zimuzu.tv/resource/33754 银河护卫动画  
+http://www.zimuzu.tv/resource/35792 无限住人  
+http://www.zimuzu.tv/resource/35738 惩罚者  
+http://www.zimuzu.tv/resource/11049 美国恐怖故事  
+http://www.zimuzu.tv/resource/32714 义军崛起  
+http://www.zimuzu.tv/resource/35640 星际迷航  
+http://www.zimuzu.tv/resource/33281 安娜贝尔  
+http://www.zimuzu.tv/resource/35565 蜘蛛侠  
+http://www.zimuzu.tv/resource/32102 血族  
+http://www.zimuzu.tv/resource/28360 忍者神龟  
+
