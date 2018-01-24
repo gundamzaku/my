@@ -39,4 +39,77 @@ $rs = preg_match("/[a-zA-Z0-9\.\_\-]+\@[a-zA-Z0-9\.\_\-]+\.(com)|(cn)$/",$email)
 
 6  
 实际代码中用eloquent插件实现orm代码  
-$Link = new PDO('mssql:host=sqlserver;dbname=database', 'username','password');
+```
+$db = new PDO('mysql:host=localhost;dbname=spring', 'liudan', 'liudan123');
+$stmt = $db->prepare("select * from Student where NAME=?");
+$value = 'Zara';
+$stmt->bindParam(1, $value, PDO::PARAM_STR, 256);
+$stmt->execute();
+while ($rs = $stmt->fetch(PDO::FETCH_ASSOC)){
+  print_r($rs);
+}
+```
+
+7、isset,empty()  
+
+8、
+
+9、
+`
+$fruit['fruit'][]['apple'] = '苹果';
+$fruit['fruit'][]['banana'] = '香蕉';
+
+$fruitDesc = json_encode($fruit);
+echo "var testjson=".$fruitDesc.";";
+`
+
+10、  
+默认机制，用磁盘文件来实现PHP会话。存入tmp目录中。client端用cookie存储对应的sessionid用于保持。
+目前的话，大多会将Session写入内存中，在Php.ini中设置，写到memcache里面。  
+
+session.save_path = "tcp://127.0.0.1:11211"  
+
+session_start()
+$_SESSION[]设置
+session_destory()
+
+11、  
+```
+E_WARNING  
+E_ALL  
+E_NOTICE  
+error_reporting(E_ALL & ~E_NOTICE);   
+
+display_errors = Off    
+log_errors = On    
+error_log = /var/log/cron/error.log  
+error_reporting = E_ALL  
+```
+
+12、  
+
+我可能会用Mq。
+读写分离，读用来查询。写用来发送道具。  
+分表，按日期来拆分，一天一个归档。  
+一般来说游戏一个服不会有这么多数据，可能有多个服，也可以考虑按服来分表。  
+索引  
+用MYSQL写队列  
+做好压力测试。  
+
+13、C
+
+14、  
+6,4,4,4,4  
+
+15、  
+-rwxrwxrwx 1 root root 1393 jul 2 11:30 test  
+drwxr-xr-x 2 edit users 4096 jun 23 17:26 pay  
+
+```
+d：表示为目录 l为link  
+rwx：user拥有所有权限
+r-x：group拥有read与execute权限，无wirte权限
+r-x：other拥有read与execute权限，无wirte权限
+12表示子目录  
+用户，组，文件大小，修改日期，文件名  
+```
