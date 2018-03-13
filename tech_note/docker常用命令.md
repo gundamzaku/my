@@ -11,6 +11,9 @@ docker rmi f5bcc57eac41
 #### 进入  
 docker attach 1eea2777d400
 
+下面这个也能用  
+docker exec -it web bash
+
 #### 启动  
 docker run -d -i -t --name=web -P --link=mysql:db -p 80:80  web
 
@@ -38,6 +41,13 @@ docker run -d -i -t --name=web -P --link=mysql:db -p 80:80  web
 
 `带端口`  
 docker run -d -i -t -p8080:8080 centos  
+
+####新用法  
+**原来的--link已经不推荐了，用桥的方式**  
+docker network create -d bridge tantanwen  
+docker run -d -i -t --net tantanwen --name=web  --privileged=true -p 80:80 web  
+docker run -d -i -t --net tantanwen --name=mysql --privileged=true -p 3306:3306 database  
+两个容器加入到桥里面，可以ping，记得改一下Host，写进去的似乎默认是ImagesID  
 
 #### 停止  
 docker stop d65c25cf644f
