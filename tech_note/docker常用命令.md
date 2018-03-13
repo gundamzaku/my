@@ -42,7 +42,7 @@ docker run -d -i -t --name=web -P --link=mysql:db -p 80:80  web
 `带端口`  
 docker run -d -i -t -p8080:8080 centos  
 
-####新用法  
+#### 新用法  
 **原来的--link已经不推荐了，用桥的方式**  
 docker network create -d bridge tantanwen  
 docker run -d -i -t --net tantanwen --name=web  --privileged=true -p 80:80 web  
