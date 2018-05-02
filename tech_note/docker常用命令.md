@@ -38,6 +38,8 @@ docker run -d -i -t --name=liwugame -P --link=mysql:db -p 8080:8080  php56  
 
 `映射到另外一台主机`  
 docker run -d -i -t --name=web -P --link=mysql:db -p 80:80  web  
+`多个端口`
+docker run -d -p 80:80 -p 22:22
 
 `带端口`  
 docker run -d -i -t -p8080:8080 centos  
