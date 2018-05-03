@@ -48,6 +48,8 @@ docker run -d -i -t -p8080:8080 centos
 **原来的--link已经不推荐了，用桥的方式**  
 docker network create -d bridge tantanwen  
 docker run -d -i -t --net tantanwen --name=web  --privileged=true -p 80:80 web  
+后者是指images的  
+
 docker run -d -i -t --net tantanwen --name=mysql --privileged=true -p 3306:3306 database  
 两个容器加入到桥里面，可以ping，记得改一下Host，写进去的似乎默认是ImagesID  
 
@@ -63,3 +65,8 @@ docker images
 #### 如何退出容器而不停止容器？  
 
 组合键：Ctrl+P+Q
+
+#### 挂载目录  
+docker run -d -i -t -v /source_php:/data/www --net tantanwen --name=wanda --privileg
+ed=true -p 80:80 -p 2181:2181 wanda  
+注意，虚拟机的话是映射虚拟机的目录的。  
