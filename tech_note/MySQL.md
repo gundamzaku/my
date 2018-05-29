@@ -20,4 +20,4 @@ FLUSH PRIVILEGES; #刷新权限
 create user 'test'@'localhost' identified by '123456';
 
 ### 分配权限  
-grant all privileges on `testdb`.* to 'test'@'%' identified by '123456';  
+grant all privileges on `testdb`.* to 'test'@'%';
