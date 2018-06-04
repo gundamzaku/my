@@ -75,3 +75,5 @@ ed=true -p 80:80 -p 2181:2181 wanda
 docker run --name mysql5 -v /data/mysql5/datadir:/var/lib/mysql --net tantanwen -e MYSQL_ROOT_PASSWORD=dan2001go --privileged=true -p 3306:3306 -d mysql:5
 
 docker run --name mysql8 -v /data/mysql/datadir:/var/lib/mysql --net tantanwen -e MYSQL_ROOT_PASSWORD=dan2001go --privileged=true -p 3306:3306 -d mysql:8
+
+docker run --name mysql8 -v /mysql/datadir:/var/lib/mysql -v /mysql/conf.d:/etc/mysql/conf.d --net tantanwen -e MYSQL_ROOT_PASSWORD=dan2001go --privileged=true -p 3306:3306 -d mysql:8
