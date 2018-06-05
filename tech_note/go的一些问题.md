@@ -3,6 +3,7 @@
 src/main/source1.go source2.go  
 然后paceage里填main，即可直接对main目录编译  
 
+`go root`要配好  
 
 通过go get -v可以查看到安装package的详情
 
