@@ -6,11 +6,11 @@ Redis的数据结构有：
 
 HyperLogLog、Geo、Pub/Sub  
 
-Redis分布式锁可用**setnx**来争抢，**expire**配上过期时间可以自动释放。  
+Redis分布式锁可用setnx来争抢，expire配上过期时间可以自动释放。  
 
-不过为了防止意外发生导至锁无法释放，可以用**set**整合成一条指令来解决  
+不过为了防止意外发生导至锁无法释放，可以用set整合成一条指令来解决  
 
-set key value NX EX ttl  
+例如：set key value NX EX ttl  
 
 Redis里有1亿个Key，想查出10W个前缀一样的Key，用`Keys xx*`，这个的缺点是吃效率，线上环境不能这么玩，会阻塞，得结合**scan**指令。  
 
@@ -40,6 +40,6 @@ AOF有个**sync**的配置，是指定恢复的时间的。可设置成实时的
 
 Redis的同步机制是主从、从从同时。具体看手册。  
 
-另外还有Redis的集群。  
+另外还有Redis的集群，不过目前来说，Redis的集群都会用一些第三方的解决方案，例如：twemproxy。  
 
 最后，不要觉得这些都掌握了面试就OK了，大部分的面试都会来问你Redis实现的具体原理是什么的。  
