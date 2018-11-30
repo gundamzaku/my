@@ -1,3 +1,9 @@
+### 添加用户
+```
+CREATE USER 'harbour'@'%' IDENTIFIED BY 'harbour123.321';
+GRANT ALL ON *.* TO 'harbour'@'%';
+```
+
 ### 查看密码  
 ```
 mysql>use mysql;
