@@ -67,8 +67,7 @@ docker images
 组合键：Ctrl+P+Q
 
 #### 挂载目录  
-docker run -d -i -t -v /source_php:/data/www --net tantanwen --name=wanda --privileg
-ed=true -p 80:80 -p 2181:2181 wanda  
+docker run -d -i -t -v /source_php:/data/www --net tantanwen --name=wanda --privileged=true -p 80:80 -p 2181:2181 wanda  
 注意，虚拟机的话是映射虚拟机的目录的。  
 
 #### 启动MySQL  
