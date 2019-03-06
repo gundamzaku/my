@@ -77,5 +77,9 @@ docker run --name mysql8 -v /data/mysql/datadir:/var/lib/mysql --net tantanwen -
 
 docker run --name mysql8 -v /mysql/datadir:/var/lib/mysql -v /mysql/conf.d:/etc/mysql/conf.d --net tantanwen -e MYSQL_ROOT_PASSWORD=dan2001go --privileged=true -p 3306:3306 -d mysql:8
 
+docker run -d -i -t --net tantanwen --name=php --privileged=true -p 9000:9000 php
+
+docker run --name nginx -v /data/dockerdata/web:/usr/share/nginx/html -v /data/dockerdata/nginx/conf.d:/etc/nginx/nginx.conf:ro --net tantanwen --privileged=true -p 80:80 -d nginx
+
 #### 查看日志
 docker logs -f -t --tail 100 e79464636bca 
