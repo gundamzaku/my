@@ -81,5 +81,7 @@ docker run -d -i -t --net tantanwen --name=php --privileged=true -p 9000:9000 ph
 
 docker run --name nginx -v /data/dockerdata/web:/usr/share/nginx/html -v /data/dockerdata/nginx/conf.d:/etc/nginx/nginx.conf:ro --net tantanwen --privileged=true -p 80:80 -d nginx
 
+ docker run -it --name php --net tantanwen -v /data/dockerdata/php:/data/ -p 9000:9000 --privileged=true centos
+
 #### 查看日志
 docker logs -f -t --tail 100 e79464636bca 
