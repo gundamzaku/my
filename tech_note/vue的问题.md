@@ -6,5 +6,5 @@ webpackJsonp is not defined
 找到build→webpack.prod.conf.js→找到HtmlWebpackPlugin插件，添加如下配置：  
 chunks: ['manifest','vendor','admin']  
 
-#Unexpected end of JSON input while parsing near '...ture":"-----BEGIN PGP
+#Unexpected end of JSON input while parsing near '...ture":"-----BEGIN PGP  
 npm cache clean --force
