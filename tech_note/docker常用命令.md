@@ -70,6 +70,9 @@ docker images
 docker run -d -i -t -v /source_php:/data/www --net tantanwen --name=wanda --privileged=true -p 80:80 -p 2181:2181 wanda  
 注意，虚拟机的话是映射虚拟机的目录的。  
 
+#### 启动redmine  
+docker run -d --name my_redmine --network tantanwen -v /data/dockerdata/redmine/files:/usr/src/redmine/files -e REDMINE_DB_MYSQL=172.19.0.2 -e REDMINE_DB_USERNAME=redmine -e REDMINE_DB_PASSWORD=redmine321.123  REDMINE_PLUGINS_MIGRATE=1 -p 3000:3000 redmine  
+
 #### 启动MySQL  
 docker run --name mysql5 -v /data/mysql5/datadir:/var/lib/mysql --net tantanwen -e MYSQL_ROOT_PASSWORD=dan2001go --privileged=true -p 3306:3306 -d mysql:5
 
