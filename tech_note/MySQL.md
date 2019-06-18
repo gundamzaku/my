@@ -22,7 +22,7 @@ FLUSH PRIVILEGES; #刷新权限
 再重置下密码：alter user 'root'@'localhost' identified by '123qwe';
 ```
 
-### 改密码 
+### 创建用户 
 create user 'test'@'localhost' identified by '123456';
 
 ### 分配权限  
